@@ -1,0 +1,130 @@
+\begin{thebibliography}{10}
+
+\bibitem{_frontier-based_????}
+{Frontier-Based} exploration: Detecting frontiers.
+\newblock http://www.robotfrontier.com/frontier/detect.html.
+
+\bibitem{althaus_behavior_2003}
+P.~Althaus and H.~I. Christensen.
+\newblock Behavior coordination in structured environments.
+\newblock {\em Advanced Robotics}, 17(7):657–674, 2003.
+
+\bibitem{apostolopoulos2001robotic}
+D.~Apostolopoulos, L.~Pedersen, B.~Shamah, K.~Shillcutt, M.~Wagner, and
+  W.~Whittaker.
+\newblock {Robotic antarctic meteorite search: Outcomes}.
+\newblock In {\em IEEE International Conference on Robotics and Automation,
+  2001. Proceedings 2001 ICRA}, pages 4174--4179, 2001.
+
+\bibitem{barbu_generalizing_2005}
+A.~Barbu and S.~C. Zhu.
+\newblock Generalizing {Swendsen-Wang} to sampling arbitrary posterior
+  probabilities.
+\newblock {\em {IEEE} Transactions on Pattern Analysis and Machine
+  Intelligence}, page 1239–1253, 2005.
+
+\bibitem{berhault_robot_2003}
+M.~Berhault, H.~Huang, P.~Keskinocak, S.~Koenig, W.~Elmaghraby, P.~Griffin, and
+  A.~Kleywegt.
+\newblock Robot exploration with combinatorial auctions.
+\newblock In {\em Proceedings of the International Conference on Intelligent
+  Robots and Systems}, page 1957–1962, 2003.
+
+\bibitem{bouraqadi_flocking-based_????}
+N.~Bouraqadi, A.~Doniec, and E.~M. de~Douai.
+\newblock {Flocking-Based} {Multi-Robot} exploration.
+
+\bibitem{burgard_collaborative_2000}
+W.~Burgard, M.~Moors, D.~Fox, R.~Simmons, and S.~Thrun.
+\newblock Collaborative multi-robot exploration.
+\newblock In {\em {IEEE} International Conference on Robotics and Automation},
+  volume~1, page 476–481, 2000.
+
+\bibitem{douillard_classification_????}
+B.~Douillard, D.~Fox, F.~Ramos, and H.~{Durrant-Whyte}.
+\newblock Classification and semantic mapping of urban environments.
+\newblock {\em The International Journal of Robotics Research}.
+
+\bibitem{fox2005hierarchical}
+D.~Fox, J.~Ko, K.~Konolige, and B.~Stewart.
+\newblock {A hierarchical bayesian approach to the revisiting problem in mobile
+  robot map building}.
+\newblock {\em Robotics Research}, pages 60--69, 2005.
+
+\bibitem{hougen2000miniature}
+D.~Hougen, S.~Benjaafar, J.~Bonney, J.~Budenske, M.~Dvorak, M.~Gini, H.~French,
+  D.~Krantz, P.~Li, F.~Malver, et~al.
+\newblock {A miniature robotic system for reconnaissance and surveillance}.
+\newblock In {\em IEEE International Conference on Robotics and Automation},
+  volume~1, pages 501--507. IEEE; 1999, 2000.
+
+\bibitem{ko_practical_2003}
+J.~Ko, B.~Stewart, D.~Fox, K.~Konolige, and B.~Limketkai.
+\newblock A practical, decision-theoretic approach to multi-robot mapping and
+  exploration.
+\newblock In {\em Proc. of the {IEEE/RSJ} Int. Conf. on Intelligent Robots and
+  Systems {(IROS)}}, page 3232–3238, 2003.
+
+\bibitem{lau_behavioural_2003}
+H.~Lau and A.~{NSW}.
+\newblock Behavioural approach for multi-robot exploration.
+\newblock In {\em Australasian Conference on Robotics and Automation {(ACRA}
+  2003), Brisbane, December}, 2003.
+
+\bibitem{mozos_semantic_2006}
+O.~M. Mozos, A.~Rottmann, R.~Triebel, P.~Jensfelt, and W.~Burgard.
+\newblock Semantic labeling of places using information extracted from laser
+  and vision sensor data.
+\newblock In {\em {IEEE/RSJ} {IROS} Workshop: From Sensors to Human Spatial
+  Concepts, Beijing, China}, 2006.
+
+\bibitem{martinez2005icra}
+O.~M. Mozos, C.~Stachniss, and W.~Burgard.
+\newblock Supervised learning of places from range data using {A}da{B}oost.
+\newblock In {\em Proceedings of the IEEE International Conference on Robotics
+  and Automation (ICRA)}, pages 1742--1747, Barcelona, Spain, 2005.
+
+\bibitem{pronobis_multi-modal_2010}
+A.~Pronobis, O.~M. Mozos, B.~Caputo, and P.~Jensfelt.
+\newblock Multi-modal semantic place classification.
+\newblock {\em The International Journal of Robotics Research}, 29(2-3):298,
+  2010.
+
+\bibitem{ranganathan_semantic_2007}
+A.~Ranganathan and F.~Dellaert.
+\newblock Semantic modeling of places using objects.
+\newblock In {\em Robotics: Science and Systems}, 2007.
+
+\bibitem{sawhney_fast_2009}
+R.~Sawhney, K.~M. Krishna, and K.~Srinathan.
+\newblock On fast exploration in {2D} and {3D} terrains with multiple robots.
+\newblock In {\em Proceedings of The 8th International Conference on Autonomous
+  Agents and Multiagent {Systems-Volume} 1}, page 73–80, 2009.
+
+\bibitem{simmons_coordination_2000}
+R.~Simmons, D.~Apfelbaum, W.~Burgard, D.~Fox, M.~Moors, S.~Thrun, and
+  H.~Younes.
+\newblock Coordination for multi-robot exploration and mapping.
+\newblock In {\em Proceedings of the National Conference on Artificial
+  Intelligence}, page 852–858, 2000.
+
+\bibitem{stachniss_speeding-up_2006}
+C.~Stachniss, O.~M. Mozos, and W.~Burgard.
+\newblock Speeding-up multi-robot exploration by considering semantic place
+  information.
+\newblock In {\em Proc. of the {IEEE} Int. Conf. on Robotics \& Automation
+  {(ICRA)}}, page 1692–1697.
+
+\bibitem{yamauchi_frontier-based_1997}
+B.~Yamauchi.
+\newblock A frontier-based approach for autonomous exploration.
+\newblock In {\em Proceedings of the 1997 {IEEE} International Symposium on
+  Computational Intelligence in Robotics and Automation}, page 146, 1997.
+
+\bibitem{yamauchi_frontier-based_1998}
+B.~Yamauchi.
+\newblock Frontier-based exploration using multiple robots.
+\newblock In {\em Proceedings of the second international conference on
+  Autonomous agents}, page 47–53, 1998.
+
+\end{thebibliography}
