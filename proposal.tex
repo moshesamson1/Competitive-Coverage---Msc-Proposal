@@ -337,8 +337,9 @@ That is, if there is no knowledge regarding the opponent, the best thing to do i
 
 \paragraph{Partial Information - $i_\opp$ is unknown, $S_\opp$ is known - asymmetrical-Knowledge}
 This case was interesting: we tried and failed to prove something conclusive regarding what strategy \rob should play.
-What we did manage to do was construct the expected \fcc functions for both $S_\opp = \gn$ and $S_\opp = \gf$. We did this by checking each and different case for both options of available $S_\opp$s, and for all different ranges of optional $i_\opp$. An example for such is shown in figure here:
-\begin{figure}[H]
+What we did manage to do was construct the expected \fcc functions for both $S_\opp = \gn$ and $S_\opp = \gf$. We did this by checking each and different case for both options of available $S_\opp$s, and for all different ranges of optional $i_\opp$. An example for such is shown in figure \ref{figures:examples Sos utility}:
+
+\begin{figure}
 \begin{tikzpicture}[thick,framed]
 %draw players
   \draw (0,0) -- (\len,0);
@@ -374,12 +375,12 @@ What we did manage to do was construct the expected \fcc functions for both $S_\
         node[pos=0.5,below]{$\textsc{R}$}; % Right Hand
 \end{tikzpicture}
 \caption{green is the extra part $r$ is doing before $o$ is reaching its initial position}
+\label{figures:examples Sos utility}
 \end{figure}
 
 
-Then, we plotted those functions, and for both cases we discovered that $S_\rob = \gf$ yield higher $\mathbb{E}[\fcc]$ than $S_\rob = \gn$,  The function for $S_\rob = \gn$ is showing in \ref{figures:case3,SrA}, and for $S_\rob = \gf$ is showing in \ref{figures:case3,SrB}.
+Then, we plotted those functions, and for both cases we discovered that $S_\rob = \gf$ yield higher $\mathbb{E}[\fcc]$ than $S_\rob = \gn$, the function  are displayed in \ref{figures:case3,SrA}.
 
-\begin{document}
 \begin{figure}%
     \centering
     \subfloat[Utility functions, $i_\rob$ values vs. Expected profits, for $0<i_\opp<100$]{{\includegraphics[width=0.4\textwidth]{Images/E1_E2_p2A_abs.png} }}%
@@ -388,7 +389,6 @@ Then, we plotted those functions, and for both cases we discovered that $S_\rob 
     \caption{2 Figures side by side}%
     \label{fig:example}%
 \end{figure}
-\end{document}
 
 % \begin{figure}
 % \begin{subfigure}{.5\textwidth}
