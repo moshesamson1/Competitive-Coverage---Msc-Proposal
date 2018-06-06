@@ -43,6 +43,9 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{subfig}
+\usepackage{ascii}
+\usepackage{multirow}
+\usepackage{xfrac}
 
 \usetikzlibrary{arrows, automata, backgrounds,snakes}
 % End
@@ -86,6 +89,9 @@
 \DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
 \allowdisplaybreaks[2]
 \newtheorem{definition}{Definition}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\def\uncheckmark{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}
+\newcommand{\Cross}{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex, red] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}%
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -225,60 +231,90 @@ The last related problem we are going to discuss here is Foraging, which is sear
 %2-3 pages
 
 \section{Competitive Coverage: Definition}
-Let \rob and \opp be two robots, operating in an obstacle-free grid \w of size $N$. Both robots move in the four basic directions (North, South, East, West). Consider \rob to be our robot-of-interest, and \opp to be the opponent. 
-We define a coverage strategy of a robot as the coverage path, including the order of cells visited (specifically, in a cyclic coverage path, the strategy indicates both the cycle and the direction of movement---clockwise or counterclockwise). We denote \rob's and \opp's strategy by $S_\rob,S_\opp\in \mathcal{S}$ (correspondingly), where $\cal{S}$ denotes all the possible strategies. We handle the offline version of the coverage problem, in which $S_\rob$ and $S_\opp$ are computed in advance (before the execution). 
+Let \rob and \opp be two robots, operating in an obstacle-free grid \w of size $N=m \times n$. Both robots move in the four basic directions (North, South, East, West). Consider \rob to be our robot-of-interest, and \opp to be the opponent. 
+We define a coverage strategy of a robot as the coverage path, including the order of cells visited (specifically, in a cyclic coverage path, the strategy indicates both the cycle and the direction of movement---clockwise or counterclockwise). We denote \rob's and \opp's strategy by $S_\rob,S_\opp\in \mathcal{S}$ (correspondingly), where $\cal{S}$ stands for the possible strategies space. We handle the offline version of the coverage problem, in which $S_\rob$ and $S_\opp$ are computed in advance (before the execution). 
 
-\opp is covering \w using an optimal coverage strategy, that is, it follows a path guaranteeing coverage in minimal time (we use in our experiment the Spanning-Tree Coverage (STC) algorithm \cite{gabriely2001spanning}). \rob's goal is to cover as many cells as possible from \w {\em before they are visited by \rob}. 
+\opp is covering \w using an optimal coverage strategy, that is, it follows a path guaranteeing coverage in minimal time (we use in our experiment the Spanning-Tree Coverage (STC) algorithm \cite{gabriely2001spanning}). \rob's goal is to cover as many cells as possible from \w {\em before they are visited by \rob}. The calculation of the covering strategy of \rob, $S_\rob$, is based on its initial location, $i_r$. The initial position of \opp, $i_\opp$, is not necessarily known to \rob.
 
+The way we define the problem, \rob can be given $i_\opp$, $S_\opp$, both or neither. These types of information are called {\em Information Models}, and defined as follows:
+\begin{definition}[\textbf{Information Model}]
+Information Model ($IM$) is the tuple $\lbrace \varnothing, \lbrace S,I\rbrace \rbrace$, where $S\in \mathcal{S} \cup \lbrace S_\emptyset \rbrace$, where $S_\emptyset$ stands for an unknown strategy, and $I \in W \cup \lbrace \w_\emptyset \rbrace$, where $\w_{\emptyset}$ stands for an unknown initial point. 
+If $IM=\varnothing$ then the player of interest doesn't know its opponent exists.
+Let $IM_\rob$ be the information model \rob is given about \opp, and let $IM_\opp$ be the information model \opp is given about \rob.
+\end{definition}
 
-%Each robot's purpose is to be the first to visit as many cells as possible in the grid, before their opponent visits them. %\rob's purpose is to cover \w - visits all \w's cells $c_0,\ldots,c_{N-1}$ - before the opponent robot \opp covers them. 
-%We handle the offline version of the coverage problem, in which both \rob and \opp are using offline strategies $S_\rob,S_\opp\in \mathcal{S}$ correspondingly, where $\cal{S}$ denotes all the possible strategies, and each strategy tells each robot where to go when visiting cell $c_i \in $ \w.
-The calculation of the covering strategy of \rob is based on its initial location, denoted by $i_r$. The initial position of \opp, denoted by $i_\opp$, is not necessarily known to \rob.
-\opp operates without the knowledge that \rob is present in the environment. That is, it does not know that it operates in this competition. We refer to this case as the {\em asymmetric competitive coverage} problem. %non-strategic: \opp takes in consider only \w when planning $S_\opp$, and has now idea that \rob is present, until meeting it. Even then, \opp does not change its behavior.
+\opp can operate with or without the knowledge of \rob's existence. We refer to these cases as the {\em symmetric and asymmetric competitive coverage}.
+In the {\em asymmetric} case, $IM_\opp=\varnothing$, and in the {\em symmetric} case, $IM_\opp \neq \varnothing$. In both cases, $IM_\rob \neq \varnothing $.
 
-In our problem set, \rob can be given $i_\opp$, $S_\opp$ or both. Define the Information Model by $IM=\lbrace S,I\rbrace$, where $S$ is either some strategy $S_\opp\in \mathcal{S}$ or $S_\emptyset$, which is unknown strategy, and $I$ is either $i_\opp\in W$ or $\w_{\emptyset}$, which is unknown initial point. \rob wants first to maximize the number of cells it covers before \opp, and then to do it as fast as it can. Denote this value by  
+\rob thrives first to maximize the number of cells it covers before \opp. Denote this value by  
 \[
 \fcc_{x}(S_\rob, S_\opp, i_\rob, i_\opp )=
 \# \lbrace \textnormal{ First Covered Cells by } x \in \lbrace\rob,\opp\rbrace \rbrace 
 \]
+When deciding between options with the same \fcc value, \rob will choose the one that yields the fastest world's coverage time - the time it takes \rob to covers all of \w.
 
-From all the above, we can define explicitly the asymmetric competitive coverage problem:
+Considering all we said above, we define the competitive coverage problem:
 
+\begin{definition}[\textbf{Competitive Coverage Problem}]
 \begin{mdframed}[backgroundcolor=gray!20] 
-Let \w be a finite obstacle-free grid of size $N$, and let $IM=\lbrace S_\opp\in \lbrace \mathcal{S}\cup S_{\emptyset} \rbrace,i_\opp\in \lbrace \w \cup \w_{\emptyset} \rbrace \rbrace,i_\rob\in\w$ the given information model. Find: \[ S_\rob^\star \in \mathcal{S} \textnormal{ s.t. } S_\rob^\star =\argmax_{S_\rob\in\mathcal{S}} \lbrace \fcc_{r}(S_\rob, S_\opp, i_\rob, i_\opp ) \rbrace\]
+Let \w be a finite, obstacles-free grid of size $N$. Let $IM_\rob=\lbrace S_\opp ,i_\opp \rbrace$ the information model given to \rob, and $IM_\opp \in \lbrace \varnothing, \lbrace S_\rob, i_\rob \rbrace \rbrace$. Find: \[ S_\rob^\star \in \mathcal{S} \textnormal{ s.t. } S_\rob^\star =\argmax_{S_\rob\in\mathcal{S}} \lbrace \fcc_{r}(S_\rob, S_\opp, i_\rob, i_\opp ) \rbrace\]
 \end{mdframed}
+\end{definition}
 
-%\section{1-D}
-%\textbf{Give, in short, our conclusions regarding the 1-D case.}
 
-A summary of the different information models considered in this paper, and the obtained results, is described in the following table:
+\section{Initial Results}
+In this section we present results from a simple, 1D world, and from a more realistic 2D world. In each one, we divide our work between the different information-models available, checking and comparing between symmetric and asymmetric knowledge.
 
-%
-%\section{2-D}
-%Below we consider different cases of given information $IN$, and for each one we analyze the dub-problem, and proving constraints over expected results, considering different criteria. Here is a table, that summing-up our conclusions: 
-
+A summary of the different information models considered, and some of the obtained results, considering 1D and 2D worlds, is described in table \ref{Tables: Initial Results}:
+  
 \begin{table}[h]
 \caption{Summary of results, with respect to the information held by \rob.}
 \label{table_example}
 \begin{center}
-\begin{tabular}{|c||c|c|}
+\begin{tabular}{|c|c|cc|c|c|}
 \hline 
-& $\mathbb{\fcc}$ & Optimal strategy\\
+\multirow{2}{*}{World}  & \multirow{2}{*}{Symmetry Type} & \multicolumn{ 2}{|C|}{$IM$}  & \multirow{2}{*}{$\mathbb{\fcc}$} & \multirow{2}{*}{Optimal strategy}\\
+& & $S_x$ & $i_x$ & &\\
 \hline
-$\lbrace S, \w \rbrace$ &  & Section XXX\\
 \hline
-$\lbrace S_{\emptyset}, \w \rbrace$ &  & Section XXX\\
-\hline
-$\lbrace S, \w_{\emptyset} \rbrace$ &  & Section XXX\\
-\hline
-$\lbrace S_{\emptyset}, \w_{\emptyset} \rbrace$ &  & Section XXX\\
+\multirow{ 8}{*}{1D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & Complex & \go \\
+\cline{3-6}
+& & \uncheckmark & \checkmark & Complex & \gf \\
+\cline{3-6}
+& & \checkmark & \uncheckmark & Complex & \gf \\
+\cline{3-6}
+& & \uncheckmark & \uncheckmark & Complex & \gf \\
+\cline{2-6}
+& \multirow{ 4}{*}{Symmetric} & \checkmark & \checkmark & ? & ? \\
+\cline{3-6}
+& & \uncheckmark & \checkmark & ? & ? \\
+\cline{3-6}
+& & \checkmark & \uncheckmark & ? & ? \\
+\cline{3-6}
+& & \uncheckmark & \uncheckmark & ? & ? \\
+\cline{1-6}
+\multirow{ 8}{*}{2D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & $m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}$ & $GIPC$ \\
+\cline{3-6}
+& & \uncheckmark & \checkmark & $\sfrac{(N+1)}{2}$ & \cros / \coos \\
+\cline{3-6}
+& & \checkmark & \uncheckmark & ? & ?\\
+\cline{3-6}
+& & \uncheckmark & \uncheckmark & $\sfrac{(N+1)}{2}$ & \cros\\
+\cline{2-6}
+& \multirow{ 4}{*}{Symmetric} & \checkmark & \checkmark & ? & ? \\
+\cline{3-6}
+& & \uncheckmark & \checkmark & ? & ? \\
+\cline{3-6}
+& & \checkmark & \uncheckmark & ? & ?\\
+\cline{3-6}
+& & \uncheckmark & \uncheckmark & ? & ?\\
 \hline
 \end{tabular}
 \end{center}
+\label{Tables: Initial Results}
 \end{table}
 
-\section{Initial Results}
-In this section we present results from a simple, 1D world, and from a more realistic 2D world. In each one, we divide our work between the different information-models available, checking and comparing between symmetric and asymmetric knowledge.
+
 \subsection{1D World}
 In the 1D world, we consider \w to be a single line, where \rob and \opp move along, going Right or Left. This is a very degenerated case, but still important in term of laying the basis for the rest of our research.
 
@@ -331,9 +367,10 @@ This case was much simpler: according to the full knowledge case, for either $S_
 This result is interesting: what we show is, actually, that knowing the opponent's strategy does not count for anything. This result stands in contrast to what we found in the 2D similar case, as will be shown.
 
 \paragraph{Zero Information - asymmetrical-Knowledge}
-\textcolor{red}{\textbf{apparently, we didn't wrote the simplest case. Add here, and to the main file the best response for when \rob has zero information regarding \opp}}.
-We claim the obvious claim: that if \rob knows nothing regarding \opp, except for its existence, then \[{\arg \max}_{S_\rob}\lbrace\mathbb{E}[\fcc]\rbrace=B\]
-That is, if there is no knowledge regarding the opponent, the best thing to do is to cover as much ground toward the far edge, where it is more probable \opp would be. Then, when \rob meets it, it has all the part from $i_\rob$ to the near edge.
+In this case, we used the previous achieved results, and compared them against behaving as if there is no opponent. This comparison is partly to show that us deciding in the problem definition that $IM_\rob \neq \varnothing$ is indeed a valid choice.
+Playing as such will result in $S_\rob=\gn$ (since \rob is assuming its alone, and prefer to cover as fast as possible), where taking in consideration \opp's existence yields better results.
+
+We conclude and prove that in the zero-information, asymmetrical case, it is best to play $S_\rob=\gf$, and it is better than playing as if \opp is not exists. 
 
 \paragraph{Partial Information - $i_\opp$ is unknown, $S_\opp$ is known - asymmetrical-Knowledge}
 This case was interesting: we tried and failed to prove something conclusive regarding what strategy \rob should play.
@@ -519,14 +556,3 @@ The next steps in our work will be:
 \bibliography{refs}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
