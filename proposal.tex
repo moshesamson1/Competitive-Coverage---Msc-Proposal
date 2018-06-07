@@ -199,9 +199,9 @@ The robotic coverage problem is one of the fundamental problems in robotic resea
 
 In the original problem of robotic coverage, a robot's goal is to determine a path that will visit each point in a given area at least once, usually while minimizing the time for completion \cite{galceran2013survey}. The problem has been examined in different settings, for example offline vs. online coverage \cite{gabriely2001spanning,agmon2008giving}, where the environment map is given in advance or discovered during the execution (respectively), coverage with the presence of threats that might stop the robot \cite{yehoshua2014safest}, and continuous vs. discrete domains \cite{gabriely2001spanning,yang2004neural}. In the multi-robot coverage problem, the coverage is a collaborative effort: each point in the area should be visited at least once by some robot from the team, and the common goal is to minimize the maximal working time of some robot from the team. 
 
-In this paper we formally define a new variant of the coverage problem, {\em competitive coverage}, in which robots do not work collaboratively, but competitively. More formally, two robots, \rob and \opp, are to cover a given area represented as a grid, and our goal is to maximize the number of cells \rob covers first, before they are covered by \opp. We first examine the {\em asymmetric} variant of the problem, in which \opp operates without the knowledge of \rob's existence, and \rob knows it should compete with \opp. 
+In this work we formally define a new variant of the coverage problem, {\em competitive coverage}, in which robots do not work collaboratively, but competitively. More formally, two robots, \rob and \opp, are to cover a given area represented as a grid, and our goal is to maximize the number of cells \rob covers first, before they are covered by \opp. We first examine the {\em asymmetric} variant of the problem, in which \opp operates without the knowledge of \rob's existence, and \rob knows it should compete with \opp. 
 
-We model the problem by the level of information \rob has on \opp's location and coverage path. We consider four different models: (i) \rob knows the initial location of \opp and its planned coverage path ; (ii) \rob knows only the path, but does not know \opp's initial location ; (iii) \rob knows \opp's initial location, but not its coverage path ; (iv) \rob does not know both \opp's path and its location.
+The problem can be classified as {\em symmetric} or {\em asymmetric}, which refers to wither \opp even knows about \rob's existence or not, regardless to what is the extent of such information. The problem is also modeled by the level of information one robot has on the other (beside its existence): initial location and strategy/coverage-path. We consider four different models: (i) \rob knows the initial location of \opp and its planned coverage path ; (ii) \rob knows only the path, but does not know \opp's initial location ; (iii) \rob knows \opp's initial location, but not its coverage path ; (iv) \rob does not know both \opp's path and its location.
 
 Solving the competitive coverage problem, in some cases, is as computationally hard as solving the original coverage problem \cite{arkin2000approximation}. For the sake of the analysis, we consider environments in which an optimal coverage path can be computed in polynomial time, for example by using the Spanning-Tree Coverage Algorithm \cite{gabriely2001spanning}, which generate, cyclic coverage paths under some assumptions on the environment. 
 
@@ -211,10 +211,10 @@ We therefore present an optimal algorithm for \opp in the full-information case,
 
 The problem of single-robot coverage has been extensively discussed in the literature, and many approaches to coverage path planning have been developed though the years. In \cite{galceran2013survey} Galceran and Carreras offer a recent survey of coverage path planning methods.
 
-The coverage problem can be classifies as either offline or online. 
+The coverage problem can be classified as either offline or online. 
 Online algorithms assumes zero or partial knowledge regarding the world to be covered, and the coverage-path is generated while advancing in that world. Conversely, Offline algorithms rely on stationary, known beforehand map of the world, and thus create the full coverage-path before even starting to move through it. In this paper, we focus on offline coverage.
 
-The coverage problem has been reduced to the traveling salesman problem \cite{arkin2000approximation}, and thus known to be $\mathcal{NP}$-complete even on simple graphs such as grid graphs \cite{papadimitriou1977euclidean}. However, there are known solutions to the coverage problem when simplified, that work even in linear time. For example, the offline algorithm STC, presented in \cite{gabriely2001spanning} has been proven to be optimal on discrete world, computes an optimal covering path in linear time $O(N)$, where $N$ is the number of cells comprising the approximate area. In our paper we considered an approximate cellular decomposition (as explained in \cite{galceran2013survey}) into finite grid, and thus we know there exists an optimal coverage path which can be found in a linear time.
+The coverage problem has been reduced to the traveling salesman problem \cite{arkin2000approximation}, and thus known to be $\mathcal{NP}$-complete even on simple graphs such as grid graphs \cite{papadimitriou1977euclidean}. However, there are known solutions to the coverage problem, that work even in linear time. For example, the offline algorithm STC, presented in \cite{gabriely2001spanning} has been proven to be optimal on discrete world, computes an optimal covering path in linear time $O(N)$, where $N$ is the number of cells comprising the approximate area. In our work we considered an approximate cellular decomposition (as explained in \cite{galceran2013survey}) into finite grid, and thus we know there exists an optimal coverage path which can be found in a linear time.
 
 A considerable attention has been given in the literature also to the multi-robot variant of the coverage problem. In multi-robot coverage, multiple robots work in coordination in order to jointly cover an area. The robots can be with or without leader(s), relying on full or limited communication (e.g., \cite{agmon2008giving}), in online or offline manner \cite{agmon2008giving, de2005blind}.
 In this paper we do consider multiple (exactly 2) robots, but working noncooperately, one on each side.
@@ -222,23 +222,22 @@ In this paper we do consider multiple (exactly 2) robots, but working noncoopera
 Yehoshua et al. \cite{yehoshua2013robotic} recently introduced a new variant of the coverage problem, in which the covering robots operate in an adversarial environment, where threats exist and might stop the robot. Online algorithms for adversarial coverage were discussed in  \cite{yehoshua2015online}, and multi-robot algorithms for adversarial coverage were discussed in \cite{yehoshua2016multi}.
 In this paper other robots considered as competitors, and are not being a threat to our robot. %The robot does/doesn not have a behavior to meeting with its opponent, but in any case, it does not make it stop.
 
-Another worth-mentioning niche relating to coverage is the Patrol task. %Most of the work done in this area of research consider the multi-robot problem, and take in consideration the single-robot case as a sub-case of the multi-robot case. 
-Most Patrol algorithms are either partition-based, where the area is divided into sub-areas, and each one is assigned to a robot (e.g., \cite{guo2004towards}, \cite{guo2004coverage}, \cite{jung2002tracking}), or are cyclic-based, where all robots travel through one cyclic path, coordinately \cite{chevaleyre2004theoretical}. 
-In adversarial patrolling, there is an adversary trying to penetrate through the patrol path, undetected. In this paper we consider competitors, where both are already in the area, and are trying to visit it as fast as possible. %Also, in patrolling, the enemy is trying (most of the time) to avoid from being detected, while in this paper, the other opponent does not necessarily is trying to hide: its concern is different from the one in the Patrol problem.
+Another worth-mentioning niche relating to coverage is the patrolling task, in which the robot(s) are to repeatedly visit the area in order to monitor change in state. Most Patrol algorithms are either partition-based, where the area is divided into sub-areas, and each one is assigned to a robot (e.g., \cite{guo2004towards}, \cite{guo2004coverage}, \cite{jung2002tracking}), or are cyclic-based, where all robots travel through one cyclic path, coordinately \cite{chevaleyre2004theoretical}. 
+In adversarial patrolling (\cite{agmon2011multi}, \cite{sless2014multi}, \cite{agmon2008multi}), there is an adversary trying to penetrate through the patrol path, undetected. In this paper we consider competitors, where both are already in the area, and are trying to visit it as fast as possible. %Also, in patrolling, the enemy is trying (most of the time) to avoid from being detected, while in this paper, the other opponent does not necessarily is trying to hide: its concern is different from the one in the Patrol problem.
 
-The last related problem we are going to discuss here is Foraging, which is searching, and when found, transporting objects to one or more collection points. In \cite{winfield2009foraging} we find a fairly extensive survey of the subject, including defining and describing the principles of Foraging, presents the essentials design features that are a requirement for any foraging robot, and presents strategies for multi-robot foraging. \cite{winfield2009foraging} uses Finite-State-Machine to describe the states that constitute foraging. In our paper, the robot does not need find anything, therefore there is not the notion of 'capacity' (that exists in foraging), and the choice to go back to certain points depends on the covering strategy assumptions (which, in our case, says that only position visited more than once is the initial position).
+Finally, the competitive problem is related to the foraging problem, which is searching, and when found, transporting objects to one or more collection points. In \cite{winfield2009foraging} we find a fairly extensive survey of the subject, including defining and describing the principles of foraging, presents the essentials design features that are a requirement for any foraging robot, and presents strategies for multi-robot foraging. \cite{winfield2009foraging} uses Finite-State-Machine to describe the states that constitute foraging. In our paper, the robot does not need find anything, therefore there is not the notion of 'capacity' (that exists in foraging), and the choice to go back to certain points depends on the covering strategy assumptions (which, in our case, says that only position visited more than once is the initial position).
 
 %2-3 pages
 
 \section{Competitive Coverage: Definition}
 Let \rob and \opp be two robots, operating in an obstacle-free grid \w of size $N=m \times n$. Both robots move in the four basic directions (North, South, East, West). Consider \rob to be our robot-of-interest, and \opp to be the opponent. 
-We define a coverage strategy of a robot as the coverage path, including the order of cells visited (specifically, in a cyclic coverage path, the strategy indicates both the cycle and the direction of movement---clockwise or counterclockwise). We denote \rob's and \opp's strategy by $S_\rob,S_\opp\in \mathcal{S}$ (correspondingly), where $\cal{S}$ stands for the possible strategies space. We handle the offline version of the coverage problem, in which $S_\rob$ and $S_\opp$ are computed in advance (before the execution). 
+We define a coverage strategy of a robot as the coverage path, which is permutation of all the cells in \w, in the order they are visited (specifically in a cyclic coverage path, the strategy indicates both the cells' ordering, and the direction of movement---clockwise or counterclockwise), or a behavior (for example: opponent chooses randomly, at each step, one of its four neighbors, and go there). We denote \rob's and \opp's strategy by $S_\rob,S_\opp\in \mathcal{S}$ (respectively), where $\cal{S}$ stands for the possible strategies space. I the offline version of the competitive coverage problem, $S_\rob$ and $S_\opp$ are computed in advance (before the execution), and mostly consists of cells permutation, where in the online problem, the strategies are behaviors, able to adjust online to the environment.
 
 \opp is covering \w using an optimal coverage strategy, that is, it follows a path guaranteeing coverage in minimal time (we use in our experiment the Spanning-Tree Coverage (STC) algorithm \cite{gabriely2001spanning}). \rob's goal is to cover as many cells as possible from \w {\em before they are visited by \rob}. The calculation of the covering strategy of \rob, $S_\rob$, is based on its initial location, $i_r$. The initial position of \opp, $i_\opp$, is not necessarily known to \rob.
 
 The way we define the problem, \rob can be given $i_\opp$, $S_\opp$, both or neither. These types of information are called {\em Information Models}, and defined as follows:
 \begin{definition}[\textbf{Information Model}]
-Information Model ($IM$) is the tuple $\lbrace \varnothing, \lbrace S,I\rbrace \rbrace$, where $S\in \mathcal{S} \cup \lbrace S_\emptyset \rbrace$, where $S_\emptyset$ stands for an unknown strategy, and $I \in W \cup \lbrace \w_\emptyset \rbrace$, where $\w_{\emptyset}$ stands for an unknown initial point. 
+Information Model ($IM$) is the tuple $\lbrace \varnothing, \lbrace S,I\rbrace \rbrace$, where $S\in \mathcal{S} \cup \lbrace S_\emptyset \rbrace$, where $S_\emptyset$ stands for an unknown strategy, and $I \in W \cup \lbrace \w_\emptyset \rbrace$, where $\w_{\emptyset}$ refers to an unknown initial point. 
 If $IM=\varnothing$ then the player of interest doesn't know its opponent exists.
 Let $IM_\rob$ be the information model \rob is given about \opp, and let $IM_\opp$ be the information model \opp is given about \rob.
 \end{definition}
@@ -328,15 +327,15 @@ As mentioned above in the problem definition, each player contains an informatio
 
 For each of these problems, we would like to know what is the best strategy for \rob to play.
 
-Let us assume we have 2 major strategies:
+Consider two main strategies:
 
-$GoNear(\gn)$ - go toward the nearer edge first, until reaching it or meeting the opponent, then turn around and go all the way toward the far edge.
+$GoNear(\gn)$ - go towards the nearer edge first, until reaching it or meeting the opponent, then turn around and go all the way towards the other edge.
 
-$GoFar(\gf)$ - go toward the far edge first, until reaching it or meeting the opponent, then turn around and go all the way toward the far edge.
+$GoFar(\gf)$ - go towards the far edge first, until reaching it or meeting the opponent, then turn around and go all the way towards the other edge.
 
 And, for cases where its available and relevant, let us define:
 
-$Go(to)Oppenet(\go)$ - go toward the opponent's initial position first, and when meeting, turn around and cover toward the edge until reaching it.
+$Go(to)Oppenet(\go)$ - go towards the opponent's initial position first, and when meeting, turn around and travel towards the edge until reaching it.
 
 In the 1D world, we limited $S_\opp$ optional strategies to be either A or B, where A means going toward the closer edge first and then go back toward far edge, and B means going toward the far one first. For \rob, we considered a third option, when optional, which is to go toward the opponent's initial position, and when meeting it, turning around and go back to the far edge.
 Note that in 1D world, there are no 'optimal' strategies (in the sense that every complete strategy must cover at least one cell twice), therefore, not like the 2D world, we do not enforce our strategies to be optimal, but only to be complete.
@@ -427,22 +426,13 @@ Then, we plotted those functions, and for both cases we discovered that $S_\rob 
     \label{fig:example}%
 \end{figure}
 
-% \begin{figure}
-% \begin{subfigure}{.5\textwidth}
-%     \centering
-%     \includegraphics[width=\textwidth]{Images/E1_E2_p2A_abs.png}
-%     \subcaption{Utility functions, $i_\rob$ values vs. Expected profits, for $0<i_\opp<100$}
-%     \label{figures:case3,SrA}
-% \end{subfigure}%
-% \begin{subfigure}{.5\textwidth}
-%     \centering
-%     \includegraphics[width=\textwidth]{Images/E1_E2_w_wo_abs.png}
-%     \subcaption{Plotting functions, $r$ values vs. Expected profits, for $0<i_\opp<100$}
-%     \label{figures:case3,SrB}
-%     \end{subfigure}%
-% \end{figure}
-
 For future work, we may consider our information model without localization capabilities, and thus different set of available strategies.
+
+\subsubsection{Symmetric Knowledge}
+Up to this point, we considered the asymmetric version of our problem, where \rob knows or does not know different things about \opp, and \opp acts as if it is alone, and it only goal is to cover as fast as possible.
+A more realistic model is the symmetric knowledge, where \opp knows as much about \rob as \rob knows about \opp.
+
+We will go though the four information models available, and will try to find the best strategy for \rob, taking in consideration $S_\opp$, which now will be more complex. Then, we will try to give numerical analyzing about the given \fcc. At the end, the same way as before, we check our results using simple and realistic simulations in order to verify our results.
 
 \subsection{2D World}
 In the 2D world, same as before, we started by dividing to different given information model: either \rob is given, or not, the initial location of \opp, $i_\opp$, and its strategy, $S_\opp$. Then, assuming a very basic behavior, where only \rob is aware of \opp being, and it must decide its strategy before the game begins, we tried to find the best strategy $S_\rob$ for \rob, given the information model.
@@ -536,18 +526,18 @@ Right now, we stand in a very interesting, even if a little frustrating: We chec
 This part is remained to be investigated. 
 
 
-\subsubsection{Knowledge (a-)Symmetry}
+\subsubsection{ Symmetric Knowledge}
 Up to this point, we considered the asymmetrical-Knowledge problem: where only \rob knows about \opp's existence, and not vice-versa. 
-After that, we'll cover the symmetrical-Knowledge version of Competitive Coverage: where both \rob and \opp knows about the other's existence, and operate accordingly.
+After that, we'll cover the symmetrical-Knowledge version of Competitive Coverage: where both \rob and \opp knows about the others existence, and operate accordingly.
 We'll start by considering the offline problem, where \rob and \opp need to choose, in advance, what should they do, considering that now \opp knows about \rob (either mere existence, initial position, strategy, or a combination of above).
 We'll use method of Game Strategy in order to formulate whats in the best interest of \rob for doing. Formulating a finite number of strategies, we'll try to find if there exists some Nash-Equilibrium, where both players have the same information model, and they both prefer to use the same strategy, each of them prefer to stick with its strategy, considering the other one is doing the same. We'll then analyze the results using game-theory tools (for example: is the resulted N.E. is also pareto-optimal?), and try to prove them, both mathematically and by using simulations.
 
 \section{Work Plan}
 The next steps in our work will be:
 \begin{enumerate}
+\item Analyze the symmetric game in 1D world.
 \item Analyze the symmetric game in 2D world.
 \item Research the forth information model in 2D asymmetrical world.
-\item Go back to 1D world, and consider more realistic and limited localization capabilities.
 \item Implements realistic simulation to 1D and 2D worlds for different cases of information models.
 \end{enumerate}
 
