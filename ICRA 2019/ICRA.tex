@@ -1,0 +1,473 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+%In case you encounter the following error:
+%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
+%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
+%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
+%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
+%\pdfobjcompresslevel=0
+%\pdfminorversion=4
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+% \include{SharedParts/usings.tex}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{breqn}
+\usepackage{seqsplit}
+\usepackage{relsize}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{float}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\newcommand{\bigqm}[1][1]{\text{\larger[#1]{\textbf{?}}}}
+\usepackage{tikz,fullpage}
+\usetikzlibrary{arrows, petri, topaths}
+\usepackage{tkz-berge}
+% \usepackage[position=top]{subfig}
+\usepackage{verbatim}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{fancyhdr, setspace, color, soul}
+\usepackage{geometry,polyglossia,fontspec,csquotes, doi}
+\usepackage{ucs}
+\usepackage{breqn}
+\usepackage{mdframed}
+\usepackage{dsfont}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{xfrac}
+\usepackage{subcaption}
+\usepackage{subfig}
+\usetikzlibrary{arrows, automata, backgrounds,snakes}
+
+% define MACROS
+\newcommand{\len}{15}
+\newcommand{\LPart}{0.4}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newcounter{casenum}
+\newenvironment{caseof}{\setcounter{casenum}{1}}{\vskip.5\baselineskip}
+\newcommand{\case}[2]{\vskip.5\baselineskip\par\noindent {\bfseries Case \arabic{casenum}:} #1\\#2\addtocounter{casenum}{1}}
+\newcommand\rob{\ensuremath{r}\xspace}
+\newcommand\opp{\ensuremath{o}\xspace}
+\newcommand{\w}{\ensuremath{W}\xspace}
+\newcommand{\fcc}{\ensuremath{FCC}\xspace}
+\newcommand{\gipc}{\ensuremath{GIPC}\xspace}
+\newcommand{\cros}{\ensuremath{CROS}\xspace}
+\newcommand{\coos}{\ensuremath{COS}\xspace}
+\newcommand{\gn}{\ensuremath{GN}\xspace}
+\newcommand{\gf}{\ensuremath{GF}\xspace}
+\newcommand{\go}{\ensuremath{GO}\xspace}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
+\allowdisplaybreaks
+\newtheorem{definition}{Definition}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\def\uncheckmark{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}
+\newcommand{\Cross}{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex, red] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}%
+
+% \renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{\LARGE \bf
+Competitive  Coverage:  (Full)  Information  as  a  Game  Changer
+}
+
+
+\author{Moshe N. Samson$^{1}$ and Dr. Noa Agmon$^{2}$% <-this % stops a space
+\thanks{*This work was not supported by any organization}% <-this % stops a space
+\thanks{$^{1}$Moshe N. Samson is with the Computer Science Department,
+        Bar-Ilan University, Ramat Gan 5290002, Israel
+        {\tt\small samson.moshe@gmail.com}}%
+\thanks{$^{2}$Noa Agmon is with the Computer Science Department, Bar-Ilan University, Ramat Gan 5290002, Israel
+        {\tt\small agmon@cs.biu.ac.il}}%
+}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+\input{SharedParts/abstract.tex}
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+\input{SharedParts/introduction.tex}
+
+\section{Background and Related Work}
+\input{SharedParts/related_work.tex}
+
+\section{Competitive Coverage: Definition}
+\input{SharedParts/problem_definition.tex}
+
+\section{2D World - Results}
+Same as before, we start by considering different information models: either \rob is given, or not, the initial location of \opp, $i_\opp$, and its strategy, $S_\opp$. Then, assuming a very basic behavior, where only \rob is aware of \opp's existence, and it must decide its strategy before the game begins, we tried to find the best strategy $S_\rob$ for \rob, given the information model.
+Given this information model, we start by considering the asymmetric case in which only \rob is aware of \opp. Hence, we aim at determining the optimal strategy $S_\rob$ for \rob, based on the information models.
+
+As mentioned above in the problem definition, each player holds an information model, that can contains the opponents initial position, strategy, neither or both. Considering that, we divide our research into 4 different information models:
+\begin{enumerate}
+\item \textbf{Full information} - $i_\opp$ is known, $S_\opp$ is known
+\item \textbf{Zero-Information} - $i_\opp$ is known, $S_\opp$ is unknown
+\item \textbf{Partial Information} -  $i_\opp$ is unknown, $S_\opp$ is known
+\item \textbf{Partial Information} - $i_\opp$ is unknown, $S_\opp$ is unknown
+\end{enumerate}
+
+For each of these models, we would like to know what is the best strategy for \rob to play, maximizing $\fcc_\rob$.
+
+\subsection{Full Information - asymmetrical-Knowledge}
+
+In the full information case we present a new algorithm, \gipc (\ref{algorithms: gipc}) that maximizes the \fcc target function.
+\begin{algorithm}
+\begin{algorithmic}
+	\STATE $i_p^{S_\rob S_\opp} \leftarrow $ Find Interception Point between $S_\rob$ and $S_\opp$
+    \STATE GoTo $i_p^{S_\rob S_\opp}$, precede \opp by one step
+    \LOOP
+    	\IF {Cell $c_i$ \NOT Covered already}
+        	\STATE GoTo $S_\opp(c_i)$
+        \ENDIF
+    \ENDLOOP
+  
+\end{algorithmic}
+\caption{GIPC\label{algorithms: gipc}}
+\end{algorithm}
+
+\begin{theorem}
+\gipc is correct, complete and optimal, and on a rectangular grid of size $m\times n$ it yields 
+\begin{dmath*}[compact]
+\mathbb{E}[\fcc] = m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}
+\end{dmath*}
+\end{theorem}
+
+% \input{SharedParts/GIPC_Correctness_progress.tex}
+
+Correctness and completeness proofs of \gipc are out of the scope of this paper, and we will only prove the expected \fcc of \gipc.
+In order to do that, we prove lemma \ref{lemmas:ExpectedDistanceTwoCellsRectangular}.
+
+\begin{lemma}
+The expected distance between two cells on a rectangular grid of size $m\times n$ is \[\frac{\left(m+1\right)\left(m-1\right)}{3m}+\frac{\left(n+1\right)\left(n-1\right)}{3n}\] 
+\label{lemmas:ExpectedDistanceTwoCellsRectangular}
+\end{lemma}
+\begin{proof}
+Let $X_1,Y_1,X_2,Y_2$ be random variables, indicating the coordinates for cell $C_1=\lbrace X_1, Y_1 \rbrace$ and  cell $C_2=\lbrace X_2, Y_2 \rbrace$. $X_1,X_2$ can fall anywhere in the range $\left[1\ldots m\right]$, where $Y_1,Y_2$ can fall anywhere in the range $\left[1\ldots n\right]$.
+The expected distance between two cell is:
+\begin{dmath*}[compact]
+\mathbb{E}\left[\abs*{C_2-C_1}\right]=\mathbb{E}\left[\abs*{X_2-X_1} + \abs*{Y_2-Y_1}\right]=\mathbb{E}\left[\abs*{X_2-X_1}\right]+\mathbb{E}\left[\abs*{Y_2-Y_1}\right]\end{dmath*}
+
+We can see that:
+\begin{dmath*}[compact]
+\mathbb{E}\left[\abs*{X_2-X_1}\right]=\ldots =\frac{\left(m+1\right)\left(m-1\right)}{3m}
+\end{dmath*}
+Where the full mathematical proof is in figure \ref{figures: proof expected fcc gipc}Note that the range changes from $m$ to $n$ when computing entity for $Y_1,Y_2$ instead of $X_1, X_2$.
+
+\end{proof}
+
+\begin{figure*}[thb]
+      \centering
+      \begin{multline*}
+\mathbb{E}\left[\abs*{X_1-X_2}\right] =
+\sum_{x_1=1}^{m}\sum_{x_2=1}^{m}{\frac{\abs*{x_1-x_2}}{m^2}} = \sum_{x_1=1}^{m}\sum_{x_2=1}^{x_1}{\frac{x_1-x_2}{m^2}}+\sum_{x_1=1}^{m}\sum_{x_2=x_1+1}^{m}{\frac{x_2-x_1}{m^2}}=\\
+\frac{1}{m^2}\left(\sum_{x_1=1}^{m}\sum_{x_2=1}^{x_1}{x_1-x_2}+\sum_{x_1=1}^{m}\sum_{x_2=x_1+1}^{m}{x_2-x_1}\right)=\\
+\frac{1}{m^2}\left(\sum_{x_1=1}^{m}{\left(x_1^2-\sum_{x_2=1}^{m}{x_2}\right)}\right)+
+\frac{1}{m^2}\left(\sum_{x_1=1}^{m}\left(\sum_{x_2=x_1+1}^{m}{y}-\left(m-x_1\right)\cdot x_1\right)\right)=\\
+\frac{1}{m^2}\left(\sum_{x_1=1}^{m}{\left(x_1^2-\frac{1}{2}\cdot x_1\left(x_1+1\right)\right)}\right)+
+\frac{1}{m^2}\sum_{x_1=1}^{m}\left(\frac{1}{2}\cdot \left(m-x_1\right)\left(m+x_1+1)-\left(m-x_1\right)\cdot x_1\right)\right)=\\
+\frac{1}{m^2}\sum_{x_1=1}^{m}{\left(x_1^2-\left(1+m\right)x_1+\left(\frac{1}{2}m^2+\frac{1}{2}m\right)\right)}=
+\frac{m\left(\frac{1}{2}m^2+\frac{1}{2}m\right)}{m^2}+\frac{1}{m^2}\sum_{x_1=1}^{m}{\left(x_1^2-\left(1+m\right)x_1\right)}=\\
+\frac{m+1}{2}+\frac{1}{m^2}\sum_{x_1=1}^{m}{x_1^2}-\frac{1}{m^2}\left(1+m\right)\left(\frac{1}{2}m\left(m+1\right)\right)=\\
+\frac{m+1}{2}=\frac{1}{m^2}\left(\frac{1}{6}\cdot m\left(m+1\right)\left(2m+1\right)\right)-
+\frac{1}{m^2}\left(1+m\right)\left(\frac{1}{2}m\left(m+1\right)\right)=\\
+\frac{1}{6m}\left(3m^2+3m+2m^2+3m+1-3m^2-6m-3\right)=\frac{\left(m+1\right)\left(m-1\right)}{3m}
+\end{multline*}
+      %\includegraphics[scale=1.0]{figurefile}
+\caption{Computing expected distance between x coordinates of two random cells}
+\label{figures: proof expected fcc gipc}
+ \end{figure*}
+
+Using Lemma \ref{lemmas:ExpectedDistanceTwoCellsRectangular}, we infer the value $\mathbb{E}[\fcc]$ over world of size $m\times n$, using GIPC as $S_{\rob}$, to be:
+\begin{dmath*}[compact]
+\mathbb{E}\left[\fcc\right]=m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}
+\end{dmath*}
+
+\subsection{Zero Information - asymmetrical-Knowledge}
+In the zero-information case, \rob knows neither $i_\opp$ nor $S_\opp$. In fact, in this information model, \rob knows about \opp only that it exists.
+
+Let us introduce the \cros algorithm (\ref{algorithms: cros}). We presents theoretical proof (Theorem \ref{theorems: cros correctness and optimalty}) to its optimality, and deduce that, in fact, the knowledge that an opponents exists in the world, does not grant \rob any advantage. Lastly, we prove the resulted $\mathbb{E}[\fcc]$ in Theorem \ref{theorems: cros correctness, optimalty and fcc}.
+
+\begin{algorithm}
+\begin{algorithmic}
+	\STATE Choose $S_\rob \in \mathcal{S}$ in random.
+    \STATE $c_i \leftarrow i_\rob$
+    \LOOP
+    	\STATE $c_i \leftarrow S_\rob(c_i)$
+    \ENDLOOP
+  
+\end{algorithmic}
+\caption{\cros\label{algorithms: cros}}
+\end{algorithm}
+
+\begin{theorem} \label{theorems: cros correctness, optimalty and fcc}
+Given $IM_\rob=\lbrace S_\emptyset, i_\emptyset \rbrace$, \cros is correct, complete and when and optimal, and on a rectangular grid of size $m\times n$ yields  $\mathbb{E}[\fcc_\rob(S_\rob=\cros)]=\frac{N+1}{2}$.
+\end{theorem}
+% \begin{proof}
+
+% \end{proof}
+
+% \begin{theorem} \label{theorems: cross efcc}
+% Given $IM_\rob=\lbrace S_\emptyset, i_\emptyset \rbrace$, then $\mathbb{E}[\fcc_\rob(S_\rob=\cros)]=\frac{N+1}{2}$.
+% \end{theorem}
+\begin{proof}
+Same as before, the correctness and completeness proofs of \cros are out of scope of this context, and we would prove only the expected \fcc of using \cros.
+First notice the following: for cell $c_i$ at time $i$, we say that $c_i$ is 'gained' by \rob \textbf{iff} its covering-time (by $S_o$) value (the time it was first covered by robot \opp) - ${CT}_{\opp}(c_i)$ - is higher than the time it was covered by robot $\rob$ - ${CT}_{\rob}(c_i)$.
+Now, we can re-write the expression for \rob's gain to use property of covering time:
+\begin{dmath*}
+\mathbb{E}[\fcc]=\mathbb{E}\left[\sum_{i=1}^{N}{\mathds{1}\left[CT\left(c_i\right)\geq {CT}_{\rob}(c_i)\right]}\right]
+\end{dmath*}
+Using the expectation rules, we can insert the expectation sign inside the summation: \begin{dmath*}
+\mathbb{E}[\fcc]=\sum_{i=1}^{N}{\mathbb{E}\left[\mathds{1}\left[{CT}_{\opp}(c_i)\geq {CT}_{\rob}(c_i)\right]\right]}
+\end{dmath*}
+
+So now, let us prove that $\mathbb{E}\left[\mathds{1}\left[{CT}_{\opp}(c_i)\geq {CT}_{\rob}(c_i)\right]\right]=\frac{1}{2}$. 
+Using Markov's inequality, we know that: 
+\begin{dmath*}[compact]
+\mathbb{E}\left[\mathds{1}\left[{CT}_{\opp}(c_i)\geq {CT}_{\rob}(c_i)\right]\right]={P\left({CT}_{\opp}(c_i)\geq {CT}_{\rob}(c_i)\right)}
+\end{dmath*}
+So we need to prove that the probability for the covering-time of some cell $c_i$ by $S_{\opp}$ being greater than some constant value ${CT}_{\rob}(c_i)$, where ${CT}_{\rob}(c_i)$ is uniform in range $[0,1]$, equals to $\frac{1}{2}$.
+Indeed, this is true, and here is why: both ${CT}_{\opp}(c_i)$ and ${CT}_{\rob}(c_i)$ are considered as i.i.d variables, each one of them is uniformly distributed between $0$ and $N$. Then, the probability that one is greater than the other is $\frac{1}{2}$, as can be deduced from the figure \ref{figures: covering-times}.
+
+\begin{figure}[tb]
+    \centering
+    \begin{tikzpicture}
+        \draw[very thin, gray!30, step=0.5 cm](-0.5,-0.5) grid (2.5,2.5);
+    
+        \fill [gray!60, domain=0:2, variable=\x]
+          (-1, 0)
+          -- plot ({\x}, {\x})
+          -- (2, 0)
+          -- cycle;
+    
+        \draw [thick] [->] (-0.5,0)--(2.5,0) node[right, below] {$CT_{\opp}(c_i)$};
+    
+        \draw [thick] [->] (0,-0.5)--(0,2.5) node[above, left] {$CT_{\rob}(c_i)$};
+        \draw [domain=0:2, variable=\x]
+          plot ({\x}, {\x}) node[right] at (0.5,2) {$CT_{\opp}(c_i)=CT_{\rob}(c_i)$};
+
+    \end{tikzpicture}
+    \caption{${CT}_{\opp}(c_i) > {CT}_{\rob}(c_i)$}
+    \label{figures: covering-times}
+   \end{figure}
+
+Using the above, we get that:
+\begin{dmath*}[compact]
+\mathbb{E}[\fcc]=\sum_{i=1}^{N}{\mathbb{E}\left[\mathds{1}\left[CT\left(c_i\right)\geq i\right]\right]}={\sum_{i=1}^{N}{\frac{1}{2}}=\frac{N+1}{2}}
+\end{dmath*}
+\end{proof}
+
+\subsection{Partial Information - $i_\opp$ is unknown, $S_\opp$ is known - asymmetrical-Knowledge} 
+
+
+In this case, where \rob knows $S_\opp$, but not $i_\opp$, we examine whether \rob can achieve anything better than playing \cros, given that is is given more information: According to Theorem \ref{theorems: 2d max fcc unknown io} ,it can not. The best $\mathbb{E}[\fcc]$ \rob can achieve is $\frac{N+1}{2}$.
+
+We present a new strategy, \coos(\ref{coos algorithm}), where $S_\rob$ is set to be the opponents strategy, $S_\opp$. 
+\begin{algorithm}
+\begin{algorithmic}
+	\STATE Choose $S_\rob \leftarrow S_\opp$
+    \STATE $c_i \leftarrow i_\rob$
+    \LOOP
+    	\STATE $c_i \leftarrow S_\rob(c_i)$
+    \ENDLOOP
+  
+\end{algorithmic}
+\caption{\coos\label{coos algorithm}}
+\end{algorithm}
+
+We prove in Theorem \ref{theorems: coos stupid}, sadly, that this does not increase the expected \fcc, as we hoped for.
+\begin{theorem} \label{theorems: coos stupid}
+When $IM_\rob=\lbrace S_\opp , i_\emptyset \rbrace$, then \[\mathbb{E}[\fcc_\rob(\coos, S_\opp)]=\frac{N+1}{2}\]
+\end{theorem}
+
+We then prove the more important Theorem \ref{theorems: 2d max fcc unknown io}, which brings a surprising result: the knowledge about $S_\opp$ is irrelevant to \opp, and can not help him achieve anything better than random-like results.
+
+\begin{theorem}\label{theorems: 2d max fcc unknown io}
+When $IM_\rob=\lbrace S_\opp , i_\emptyset \rbrace$, then 
+\begin{dmath*}[compact]
+\max \lbrace \mathbb{E}[\fcc_\rob(S_\rob, S_\opp)]\rbrace=\mathbb{E}[\fcc_\rob(S_\rob, S_\opp)]=\frac{N+1}{2}
+\end{dmath*}
+\end{theorem}
+
+\begin{proof}
+First of all, recall our previous definition of covering time: the Covering-Time of cell $c_i$ by some robot, using the coverage strategy $S_{\rob}$ is the time the robot first appears in $c_i$ according to $S_{\rob}$. This value is denoted by ${CT}_{S_{\rob}}(c_i)$. 
+Now, since $S_{\rob}$ and $S_{\opp}$ are optimal-cyclic-coverage strategies, they start and stop at the same position, visiting each cell only once (since we assume a rectangular world with no obstacles, such a path exists). We can say that each strategy create a 'chain' from all the cells in the world $c_0,...,c_{N-1}$. In this chain, the relative place a cell $c_i$ appears in is its ${CT}_{S_{\rob}}(c_i)$ (We are talking about \rob,  from now on, but all of this is the same for \opp). Here is an illustration of our covering-chains:
+\begin{figure}[tb]
+\centering
+\subfloat[An example for a covering chain, where coverage path starts at $c_0$]{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[initial below,state, label={CT=0}] (A)              {$c_0$};
+  \node[state, label={CT=1}]         (B) [right of=A] {$c_1$};
+  \node[state, label={CT=2}]         (C) [right of=B] {$c_2$};
+  \node[state, label={CT=3}]         (D) [right of=C] {$c_3$};
+  \node[state, label={CT=4}]         (E) [right of=D] {$c_4$};
+
+  \path (A) edge              node {} (B)
+        (B) edge              node {} (C)
+        (C) edge              node {} (D)
+        (D) edge              node {} (E)
+        (E) edge [bend left] node {} (A);
+\end{tikzpicture}
+% \caption{An example for a covering chain, where coverage path starts at $c_0$}
+}
+\newline
+\subfloat[An example for a covering chain, where coverage path starts at $c_2$.]{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[state, label={CT=3}] (A)              {$c_0$};
+  \node[state, label={CT=4}]         (B) [right of=A] {$c_1$};
+  \node[initial below,state, label={CT=0}]         (C) [right of=B] {$c_2$};
+  \node[state, label={CT=1}]         (D) [right of=C] {$c_3$};
+  \node[state, label={CT=2}]         (E) [right of=D] {$c_4$};
+
+  \path (A) edge              node {} (B)
+        (B) edge              node {} (C)
+        (C) edge              node {} (D)
+        (D) edge              node {} (E)
+        (E) edge [bend left] node {} (A);
+\end{tikzpicture}
+
+% \caption{An example for a covering chain, where coverage path starts at $c_2$.}
+}
+\end{figure}
+
+
+Now, understand this: each starting position $i_r$ determines the covering time of all the cells $c_0,...,c_{N-1}$; Since we assumed the strategy is known before hand, then, for \opp,  the covering time is set after $i_\opp$ is known, and changing it changes for all the cells their covering time. Here is an illustration:
+
+% \begin{figure}[h]
+% \centering
+
+% \end{figure}
+As can be seen in the examples above, changing $i_\opp$ directly changes the CT values of all vertices accordingly.
+As the reader can see, since $S_{\opp}$ is set, then for any $c_i$ we'll get $CT_{S_{\opp}}(c_i)=0$ if $i_\opp=c_i$, and $CT_{S_{\opp}}(c_i)=N-1$ if $i_0=c_{N-1}$. More generally: if $i_\opp=c_j$ where $j$ ranges from $0$ to $N-1$, then $CT_{S_{\opp}}(c_i)=\abs{i-j}\in [0,N-1]$.
+
+We now move to the next part: converting the way we look on \fcc. As seen before, one can write the \fcc of a fixed problem (with all its variables known) as $\fcc(W,S_{\rob},S_{\opp},i_r,i_\opp)=\# \lbrace CT_{S_{\rob}}(c_i) \le CT_{S_{\opp}}(c_i)\rbrace \textsl{ where } c_i\in W$.
+If before we wanted to find the expected \fcc expression: 
+\begin{dmath*}
+\mathbb{E}\left[\fcc\left(W, S_{\rob}, i_r, S_{\opp}, i_\opp\right) \mid W, S_{\rob}, i_r, S_{\opp}\right]=
+\frac{1}{N}\sum_{i_\opp\in W}{\fcc\left(W,S_{\rob},i_r,S_{\opp},i_\opp\right)}
+\end{dmath*}
+We now consider the following expression instead:
+\begin{dmath*}
+\mathbb{E}\left[\fcc\left(W, S_{\rob}, i_r, S_{\opp}, i_\opp\right) \mid W, S_{\rob}, i_r, S_{\opp}\right]=
+\frac{1}{N}\sum_{i_\opp\in W}{\sum_{c_i\in W}{\mathds{1}\left[CT_{S_{\rob},i_r}(c_i) \le CT_{S_{\opp},i_\opp}(c_i)\right]}}
+\end{dmath*}
+
+If we change the order of summation, we can use what we know about ranging over the initial position and get:
+\begin{dmath*}
+\mathbb{E}\left[\fcc\left(W, S_{\rob}, i_r, S_{\opp}, i_\opp\right) \mid W, S_{\rob}, i_r, S_{\opp}\right]=
+\frac{1}{N}\sum_{i_\opp\in W}{\sum_{c_i\in W}{\mathds{1}\left[CT_{S_{\rob},i_r}(c_i) \le CT_{S_{\opp},i_\opp}(c_i)\right]}}=
+\frac{1}{N}\sum_{c_i\in W}{\sum_{i_\opp\in W}{\mathds{1}\left[CT_{S_{\rob},i_r}(c_i) \le CT_{S_{\opp},i_\opp}(c_i)\right]}}=
+\frac{1}{N}\sum_{c_i\in W}{\# \lbrace CT_{S_{\rob},i_r}(c_i) \le CT_{S_{\opp},i_\opp}(c_i)\rbrace}=
+\frac{1}{N}\sum_{c_i\in W}{N-CT_{S_{\rob},i_r}(c_i)}=
+\frac{1}{N}(1+2+\ldots+N)=\frac{N+1}{2}
+\end{dmath*}
+Where the before-last equation comes from what we said we before: the number of times that $CT_{S_{\opp},i_\opp}(c_i)$ is greater or equal to $CT_{S_{\rob},i_r}(c_i)$ (can be considered as some constant $C$), when ranging over all cells as $i_\opp$, ranges itself from $N$ (if $i_\opp$ is exactly one cell after $c_i$) to $1$ (if $i_\opp$ is exactly one cell before $c_i$).
+\end{proof}
+
+
+\subsection{Partial Information - $S_\opp$ is unknown, $i_\opp$ is known - asymmetrical Knowledge} 
+This is the last information model we want in the asymmetrical knowledge case. In this case, we have yet been unable to prove superiority of any better-than-random strategy.
+Checking our simulations, we know that indeed, there are some strategies that yield better results; That is, there are some $S^{better}_{\opp}\in \mathcal{S}$ that yield $\mathbb{E}[\fcc(S_\opp=S^{better}_{\opp})] > \frac{N+1}{2}$, but we did not yet manage to prove what character made them better than other. So we know such better strategies exists.
+
+We did prove, in Theorem \ref{theorems: 2d known io unknown so} is that playing the same as your opponent is irrelevant.
+\begin{theorem} \label{theorems: 2d known io unknown so}
+When $IM_\rob = \lbrace S_\emptyset, i_o \in \w \rbrace$, then \begin{dmath*}[compact]
+\mathbb{E}{[\fcc_\rob(S_\rob=S_\opp, S_\opp)]} ={\mathbb{E}[\fcc_\rob(S_\rob=\cros, S_\opp)]} = \frac{N+1}{2}
+\end{dmath*}
+\end{theorem}
+
+This part is remained to be investigated. 
+
+\section{CONCLUSIONS}
+
+A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
+
+% \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{APPENDIX}
+
+Appendixes should appear before the acknowledgment.
+
+\section*{ACKNOWLEDGMENT}
+
+The preferred spelling of the word �acknowledgment� in America is without an �e� after the �g�. Avoid the stilted expression, �One of us (R. B. G.) thanks . . .�  Instead, try �R. B. G. thanks�. Put sponsor acknowledgments in the unnumbered footnote on the first page.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{abbrv}
+\bibliography{SharedParts/refs}
+
+\end{document}

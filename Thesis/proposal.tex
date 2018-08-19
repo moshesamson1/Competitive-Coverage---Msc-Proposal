@@ -2,97 +2,7 @@
 
 
 %Using Lines
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{amsmath}
-\usepackage{relsize}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage{graphicx}
-\usepackage{epsfig}
-\usepackage{color}
-\usepackage{mathtools}
-\usepackage{tikz}
-\usepackage{relsize}
-\usepackage{float}
-\usepackage{dsfont}
-\usepackage{hyperref}
-\usepackage[nameinlink]{cleveref}
-\newcommand{\bigqm}[1][1]{\text{\larger[#1]{\textbf{?}}}}
-\usepackage{tikz,fullpage}
-\usetikzlibrary{arrows, petri, topaths}
-\usepackage{tkz-berge}
-\usepackage[position=top]{subfig}
-\usepackage{verbatim}
-\usepackage{amsthm}
-\usepackage{pgf}
-\usepackage{tikz}
-\usepackage{fancyhdr, setspace, color, soul}
-\usepackage{geometry,polyglossia,fontspec,csquotes, doi}
-\usepackage{ucs}
-\usepackage[utf8x]{inputenc}
-% \usepackage[english,hebrew]{babel}
-\usepackage{breqn}
-\usepackage{mdframed}
-\usepackage{dsfont}
-\usepackage{tabularx}
-\usepackage{xcolor}
-\usepackage{xspace}
-\usepackage{cjhebrew}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{subfig}
-\usepackage{ascii}
-\usepackage{multirow}
-\usepackage{xfrac}
-
-\usetikzlibrary{arrows, automata, backgrounds,snakes}
-% End
-
-%language
-
-% \usepackage{polyglossia}
-% \usepackage{fancyhdr}
-% \pagestyle{fancy}
-% \lhead{H.W. \#1}
-% \usepackage{bidi}
-% \usepackage[utf8]{inputenc}
-% \usepackage[T1]{fontenc}
-% \usepackage[iso,english]{isodate}
-% \newfontfamily {\H}[Scale=1]{David CLM}
-% \newfontfamily {\Hb}[Scale=1]{David CLM Bold}
-\newfontfamily\hebrewfont{Times New Roman}[Script=Hebrew]
-
-% define MACROS
-\newcommand{\len}{15}
-\newcommand{\LPart}{0.4}
-\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem*{remark}{Remark}
-\newcounter{casenum}
-\newenvironment{caseof}{\setcounter{casenum}{1}}{\vskip.5\baselineskip}
-\newcommand{\case}[2]{\vskip.5\baselineskip\par\noindent {\bfseries Case \arabic{casenum}:} #1\\#2\addtocounter{casenum}{1}}
-\newcommand\rob{\ensuremath{r}\xspace}
-\newcommand\opp{\ensuremath{o}\xspace}
-\newcommand{\w}{\ensuremath{W}\xspace}
-\newcommand{\fcc}{\ensuremath{FCC}\xspace}
-\newcommand{\gipc}{\ensuremath{GIPC}\xspace}
-\newcommand{\cros}{\ensuremath{CROS}\xspace}
-\newcommand{\coos}{\ensuremath{COS}\xspace}
-\newcommand{\gn}{\ensuremath{GN}\xspace}
-\newcommand{\gf}{\ensuremath{GF}\xspace}
-\newcommand{\go}{\ensuremath{GO}\xspace}
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
-\DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
-\allowdisplaybreaks[2]
-\newtheorem{definition}{Definition}
-\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
-\def\uncheckmark{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}
-\newcommand{\Cross}{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex, red] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}%
+\input{SharedParts/usings.tex}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -114,9 +24,6 @@
 \setmainlanguage{english}
 
 \begin{document}
-% \setdefaultlanguage{english}
-% \setotherlanguage{hebrew}
-
 \begin{titlepage}
 \begin{center}
 
@@ -162,7 +69,7 @@ Moshe N. Samson
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
 \emph{Supervisor:} \\
-Noa Agmon
+Dr. Noa Agmon
 \end{flushleft}
 \end{minipage}
 
@@ -185,7 +92,7 @@ Ramat Gan, Israel 52900\\
 %opening
 \title{Competitive Coverage}
 \author{Moshe N. Samson\\
-advised by Noa Agmon\\
+advised by Dr. Noa Agmon\\
 The SMART Group, Computer Science Department\\
 Bar Ilan University\\
 Ramat Gan, Israel 52900\\
@@ -206,9 +113,9 @@ Ramat Gan, Israel 52900\\
 
 
 \section{Initial Results}
-In this section we present results from a simple, 1D world, and from a more realistic 2D world. In each one, we divide our work between the different information-models available, checking and comparing between symmetric and asymmetric knowledge.
+In this section we present results from a simple, 1D world, and from a more realistic 2D world. In each case, we divide our work between the different information-models available, checking and comparing between symmetric and asymmetric knowledge.
 
-A summary of the different information models considered, and some of the obtained results, considering 1D and 2D worlds, is described in table \ref{Tables: Initial Results}.
+A summary of the different information models considered, and some of the obtained results, considering 1D and 2D worlds, is described in Table \ref{Tables: Initial Results}.
   
 \begin{table}[h]
 \caption{Summary of results, with respect to the information held by \rob.}
@@ -220,13 +127,13 @@ A summary of the different information models considered, and some of the obtain
 & & $S_x$ & $i_x$ & &\\
 \hline
 \hline
-\multirow{ 8}{*}{1D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & Complex & \go \\
+\multirow{ 8}{*}{1D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & solved (appears outside of this scope ) & \go \\
 \cline{3-6}
-& & \uncheckmark & \checkmark & Complex & \gf \\
+& & \uncheckmark & \checkmark & solved (appears outside of this scope ) & \gf \\
 \cline{3-6}
-& & \checkmark & \uncheckmark & Complex & \gf \\
+& & \checkmark & \uncheckmark & solved (appears outside of this scope ) & \gf \\
 \cline{3-6}
-& & \uncheckmark & \uncheckmark & Complex & \gf \\
+& & \uncheckmark & \uncheckmark & solved (appears outside of this scope ) & \gf \\
 \cline{2-6}
 & \multirow{ 4}{*}{Symmetric} & \checkmark & \checkmark & ? & ? \\
 \cline{3-6}
@@ -236,7 +143,7 @@ A summary of the different information models considered, and some of the obtain
 \cline{3-6}
 & & \uncheckmark & \uncheckmark & ? & ? \\
 \cline{1-6}
-\multirow{ 8}{*}{2D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & $m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}$ & $GIPC$ \\
+\multirow{ 8}{*}{2D} & \multirow{ 4}{*}{Asymmetric} & \checkmark & \checkmark & $m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}$ & \gipc \\
 \cline{3-6}
 & & \uncheckmark & \checkmark & $\sfrac{(N+1)}{2}$ & \cros / \coos \\
 \cline{3-6}
@@ -269,7 +176,7 @@ As mentioned above in the problem definition, each player holds an information m
 \item \textbf{Partial Information} - $i_\opp$ is unknown, $S_\opp$ is unknown
 \end{enumerate}
 
-For each of these problems, we would like to know what is the best strategy for \rob to play, maximizing $\fcc_\rob$.
+For each of these models, we would like to know what is the best strategy for \rob to play, maximizing $\fcc_\rob$.
 
 Consider two main strategies:
 
@@ -281,10 +188,8 @@ And, for cases where its available and relevant, let us define:
 
 $Go(to)Oppenet(\go)$ - go towards the opponent's initial position first, and when meeting, turn around and travel towards the edge until reaching it.
 
-In the 1D world, we limited $S_\opp$ optional strategies to be either \gn or \gf, where \gn means going towards the closer edge first and then go back toward far edge, and \gf means going toward the far one first. 
+We limited $S_\opp$ optional strategies to be either \gn or \gf, where \gn means going towards the closer edge first and then go back toward far edge, and \gf means going toward the far one first. 
 Note that in a 1D world, a coverage algorithm usually requires that cells are revisited, thus we consider all complete strategies (with no reference to revisited cells).
-% For \rob, we considered a third option, when optional, which is to go toward the opponent's initial position, and when meeting it, turning around and go back to the far edge.
-% Note that in 1D world, there are no 'optimal' strategies (in the sense that every complete strategy must cover at least one cell twice), therefore, not like the 2D world, we do not enforce our strategies to be optimal, but only to be complete.
 
 Assume the robots have, to some degree, some localization capabilities. This allows them to know what is the near edge and what is the far edge.
 Therefore, we enumerate the 4 information models mentioned above, and for each one, we consider the different options for $S_\opp\in \lbrace \gn,\gf\rbrace$, and check what is the best response for $S_\rob$, and the \fcc it gains. We formulate the gained \fcc as a utility function, that depends on \opp's strategy and initial position.
@@ -292,21 +197,21 @@ For each such case, we either prove it mathematically, if possible, and demonstr
 
 
 \subsubsection{Information Models}
-Let us show our initial results, regarding the four information models. In all cases, we assumed w.l.o.g that \rob is on the left half of \w.
+Let us show our initial results, regarding the four information models. In all cases, we assumed w.l.o.g that \rob is on the left half of \w. The {\em optimal strategy} is the one that maximizes the expected \fcc.
 \paragraph{Full Information - asymmetrical-Knowledge}
-We started by proving the following lemmas:
+We have proven the following Lemmas:
 \begin{lemma}
-Assume that $ S_\opp=\gf$ and $i_\opp \in (0,i_\rob)$, then {\rob}s best response is $S_\rob=\gn$.
+Assume that $ S_\opp=\gf$ and $i_\opp \in (0,i_\rob)$, then {\rob}'s optimal strategy is obtained by $S_\rob=\gn$.
 \end{lemma}
 \begin{lemma}
-Assume that $ S_\opp=\gn$ and $i_\opp \in (i_\rob, N/2)$, then {\rob}s best response is $S_\rob=\gf$.
+Assume that $ S_\opp=\gn$ and $i_\opp \in (i_\rob, N/2)$, then {\rob}'s optimal strategy is obtained by $S_\rob=\gf$.
 \end{lemma}
 \begin{lemma}
-Assume that $ S_\opp=\gf$ and $i_\opp \in (N/2,N)$, then {\rob}s best response is $S_\rob=\gf$.
+Assume that $ S_\opp=\gf$ and $i_\opp \in (N/2,N)$, then {\rob}'s optimal strategy is obtained by $S_\rob=\gf$.
 \end{lemma}
 We used the above to prove theorem \ref{theorems: 1d full info asym So=go}:
 \begin{theorem} \label{theorems: 1d full info asym So=go}
-Assume $S_\opp=\go$, then \rob best response is $S_\rob=\go$. 
+Assume $S_\opp=\go$, then \rob optimal strategy is obtained by $S_\rob=\go$. 
 \end{theorem}
 
 In a similar way, we deconstructed the other options for $S_\opp$, and proved theorems \ref{theorems: 1d full info asym So=gn} and \ref{theorems: 1d full info asym So=gf}:
@@ -317,7 +222,7 @@ Assume $S_\opp=\gn$, then \rob best response is $S_\rob=\go$.
 Assume $S_\opp=\gf$, then \rob best response is $S_\rob=\go$.
 \end{theorem}
 
-We conclude and say that in all cases, {\rob}s best response is playing $S_\rob=\go$.
+We conclude and say that in all cases, {\rob}'s best response is playing $S_\rob=\go$.
 
 % % In this information model case, we started by claiming, and then proving mathematically, that for $S_\opp = \gf$, for all the different cases of $i_\opp$ (where \opp is to the left of \rob), \rob's best response is to play $\gn$.
 
@@ -337,23 +242,6 @@ We conclude and say that in all cases, {\rob}s best response is playing $S_\rob=
 This case was much simpler: according to the full knowledge case, for either $S_\opp \in \lbrace \gn,\gf \rbrace$ the best response is to go towards $i_\opp$, which in this case, is known.
 
 This result is interesting: what we show is, actually, that knowing the opponent' strategy does not count for anything. This result stands in contrast to what we found in the 2D similar case, as will be shown.
-
-\paragraph{Zero Information - asymmetrical-Knowledge}
-In this case, we started by proving theorems \ref{theorems: 1D no info basic} and \ref{theorems: 1D not info not recognize}.
-\begin{theorem} \label{theorems: 1D no info basic}
-When $IM_\rob=lbrace S_\emptyset, i_\emptyset \rbrace$, \rob's best response is $S_\rob = \gf$.
-\end{theorem}
-\begin{theorem} \label{theorems: 1D not info not recognize}
-When $IM_\rob=\varnothing$, \rob's best response is $S_\rob = \gn$.
-\end{theorem}
-
-Figures \ref{figures:1d unkown Io So=GN} and \ref{figures:1d unkown Io So=GF}, show that \rob's best response is $S_\rob=\gf$, but it will play it only when $IM_\rob \neq \varnothing$, otherwise \rob only wants to minimize its running time. This leads us to the conclusion described in \ref{theorems: utility of no information}.
-
-\begin{theorem}\label{theorems: utility of no information}
-$IM=\lbrace S_\emptyset, i_\emptyset \rbrace$ yields better results than $IM_\rob=\varnothing$.
-\end{theorem}
-
-Which means that in the zero-information, asymmetrical case, it is best to play $S_\rob=\gf$, and it is better than playing as if \opp is not exists. 
 
 \paragraph{Partial Information - $i_\opp$ is unknown, $S_\opp$ is known - asymmetrical-Knowledge} \label{sections:1D unknown io known so}
 In this case, we have yet been unsuccessful in proving the optimal strategy for \rob, maximizing its \fcc. We have constructed the expected \fcc functions for both $S_\opp = \gn$ and $S_\opp = \gf$ by checking each and different case for both options of available $S_\opp$s, and for all different ranges of optional $i_\opp$. An example for such plot is shown in figure \ref{figures:examples Sos utility}:
@@ -397,7 +285,7 @@ In this case, we have yet been unsuccessful in proving the optimal strategy for 
 \label{figures:examples Sos utility}
 \end{figure}
 
-Lemmas \ref{theorems: 1d unknown io so=GN},\ref{theorems: 1d unknown io so=GF} are yet left to be proved, and  their utility functions are displayed (for correctness-seeing purposes) in figures \ref{figures:1d unkown Io So=GN} and \ref{figures:1d unkown Io So=GF}.
+Lemmas \ref{theorems: 1d unknown io so=GN}, \ref{theorems: 1d unknown io so=GF} are yet left to be prove, and  their utility functions are displayed (for correctness-seeing purposes) in figures \ref{figures:1d unkown Io So=GN} and \ref{figures:1d unkown Io So=GF}.
 \begin{theorem} \label{theorems: 1d unknown io so=GN}
 $\mathbb{E}[\fcc_\rob (S_\rob=\gf, S_\opp=\gn)] > \mathbb{E}[\fcc_\rob (S_\rob=\gn, S_\opp=\gn)]$
 \end{theorem}
@@ -421,20 +309,29 @@ $\mathbb{E}[\fcc_\rob (S_\rob=\gf, S_\opp=\gf)] > \mathbb{E}[\fcc_\rob (S_\rob=\
     \label{figures:1d unkown Io So=GF}
 \end{figure}
 
-% For future work, we may consider our information model without localization capabilities, and thus different set of available strategies.
+\paragraph{Zero Information - asymmetrical-Knowledge}
+In this case, we started by proving Theorems \ref{theorems: 1D no info basic} and \ref{theorems: 1D not info not recognize}.
+\begin{theorem} \label{theorems: 1D no info basic}
+When $IM_\rob=\lbrace S_\emptyset, i_\emptyset \rbrace$, \rob's optimal strategy is obtained by $S_\rob = \gf$.
+\end{theorem}
+\begin{theorem} \label{theorems: 1D not info not recognize}
+When $IM_\rob=\varnothing$, \rob's optimal strategy is obtained by $S_\rob = \gn$.
+\end{theorem}
 
-% \subsubsection{Symmetric Knowledge}
-% Up to this point, we considered the asymmetric version of our problem, where \rob knows or does not know different things about \opp, and \opp acts as if it is alone, and it only goal is to cover as fast as possible.
-% A more realistic model is the symmetric knowledge, where \opp knows as much about \rob as \rob knows about \opp.
+Figures \ref{figures:1d unkown Io So=GN} and \ref{figures:1d unkown Io So=GF}, demonstrate that \rob's optimal strategy is $S_\rob=\gf$, but it will play it only when $IM_\rob \neq \varnothing$, otherwise \rob only wants to minimize its running time. This leads us to the conclusion described in Theorem \ref{theorems: utility of no information}.
 
-% We will go though the four information models available, and will try to find the best strategy for \rob, taking in consideration $S_\opp$, which now will be more complex. Then, we will try to give numerical analyzing about the given \fcc. At the end, the same way as before, we check our results using simple and realistic simulations in order to verify our results.
+\begin{theorem}\label{theorems: utility of no information}
+$IM=\lbrace S_\emptyset, i_\emptyset \rbrace$ yields better results than $IM_\rob=\varnothing$.
+\end{theorem}
+
+Which means that in the zero-information, asymmetrical case, it is best to play $S_\rob=\gf$, and it is better than playing as if \opp is not exists. 
 
 \subsection{2D World}
-Same as before, we started by dividing to different given information model: either \rob is given, or not, the initial location of \opp, $i_\opp$, and its strategy, $S_\opp$. Then, assuming a very basic behavior, where only \rob is aware of \opp's existence, and it must decide its strategy before the game begins, we tried to find the best strategy $S_\rob$ for \rob, given the information model.
+Same as before, we start by considering different information models: either \rob is given, or not, the initial location of \opp, $i_\opp$, and its strategy, $S_\opp$. Then, assuming a very basic behavior, where only \rob is aware of \opp's existence, and it must decide its strategy before the game begins, we tried to find the best strategy $S_\rob$ for \rob, given the information model.
 Given this information model, we start by considering the asymmetric case in which only \rob is aware of \opp. Hence, we aim at determining the optimal strategy $S_\rob$ for \rob, based on the information models.
 
 \subsubsection{Information Models}
-Also here, we considered the four information models described in \ref{sections:1D intro}
+Also here, we considered the four information models described in Section \ref{sections:1D intro}
 % There are 4 basic information model: 
 % \begin{enumerate}
 % \item \textbf{Full information} - $i_\opp$ is known, $S_\opp$ is known
@@ -446,7 +343,7 @@ Also here, we considered the four information models described in \ref{sections:
 \paragraph{Full Information - asymmetrical-Knowledge}
 
 In the full information case we present a new algorithm, \gipc (\ref{algorithms: gipc}) that maximizes the \fcc target function.
-The algorithm is as follows:
+The algorithm is presented in \ref{algorithms: gipc}:
 \begin{algorithm}
 \begin{algorithmic}
 	\STATE $i_p^{S_\rob S_\opp} \leftarrow $ Find Interception Point between $S_\rob$ and $S_\opp$
@@ -471,7 +368,7 @@ The algorithm is as follows:
 \paragraph{Zero Information - asymmetrical-Knowledge}
 In the zero-information case, \rob knows neither $i_\opp$ nor $S_\opp$. In fact, in this information model, \rob knows about \opp only that it exists.
 
-We then introduce the \cros algorithm(\ref{algorithms: cros}), which may sound trivial, but we prove theoretically (theorem \ref{theorems: cros correctness and optimalty}) that it is the best strategy to play, and de-facto, knowing an opponents exists in the world, does not give \rob any advantage. Lastly, we proved the resulted $\mathbb{E}[\fcc]$ in \ref{cross efcc}.
+We then introduce the \cros algorithm(\ref{algorithms: cros}), proven theoretically (Theorem \ref{theorems: cros correctness and optimalty}) that it is the best strategy to play, and de-facto, knowing an opponents exists in the world, does not give \rob any advantage. Lastly, we prove the resulted $\mathbb{E}[\fcc]$ in Theorem \ref{cross efcc}.
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -499,9 +396,9 @@ Given $IM_\rob=\lbrace S_\emptyset, i_\emptyset \rbrace$, then $\mathbb{E}[\fcc_
 \paragraph{Partial Information - $i_\opp$ is unknown, $S_\opp$ is known - asymmetrical-Knowledge} 
 
 
-In this case, what happens when \rob knows $S_\opp$, but not $i_\opp$? Can \rob achieve anything better than playing \cros, given that is is given more information? Can we set $S_\rob$ in a way that will yield better-than-random results, where $S_\rob$ can depend only on $S_\opp$? According to \ref{theorems: 2d max fcc unknown io} ,\rob cannot. The best $\mathbb{E}[\fcc]$ \rob can achieve is $\frac{N+1}{2}$.
+In this case, where \rob knows $S_\opp$, but not $i_\opp$, we examine whether \rob can achieve anything better than playing \cros, given that is is given more information: According to Theorem \ref{theorems: 2d max fcc unknown io} ,\rob cannot. The best $\mathbb{E}[\fcc]$ \rob can achieve is $\frac{N+1}{2}$.
 
-Before proving \ref{theorems: 2d max fcc unknown io}, we wondered if by using the opponent strategy, \rob can achieve something. We present a new strategy, \coos(\ref{coos algorithm}), where $S_\rob$ is set to be the opponents strategy, $S_\opp$. 
+We present a new strategy, \coos(\ref{coos algorithm}), where $S_\rob$ is set to be the opponents strategy, $S_\opp$. 
 \begin{algorithm}
 \begin{algorithmic}
 	\STATE Choose $S_\rob \leftarrow S_\opp$
@@ -514,23 +411,26 @@ Before proving \ref{theorems: 2d max fcc unknown io}, we wondered if by using th
 \caption{\coos\label{coos algorithm}}
 \end{algorithm}
 
-We then proved, sadly, that this does not give us anything (\ref{theorems: coos stupid}
+We prove in Theorem \ref{theorems: coos stupid}, sadly, that this does not increase the expected \fcc, as we hoped for.
 \begin{theorem} \label{theorems: coos stupid}
-When $IM_\rob=\lbrace S_\opp , i_\emptyset \rbrace$, then \[\mathbb{E}[\fcc_\rob(\coos, S_\opp)]=\frac{N+1}{2}\]
+ When $IM_\rob=\lbrace S_\opp , i_\emptyset \rbrace$, then \[\mathbb{E}[\fcc_\rob(\coos, S_\opp)]=\frac{N+1}{2}\]
 \end{theorem}
 
-After that, we proved the more important theorem \ref{theorems: 2d max fcc unknown io}. This tells us a very surprising result: that the knowledge about $S_\opp$ is irrelevant to \opp, and can not help him achieve anything better than random-like results.
+We then prove the more important Theorem \ref{theorems: 2d max fcc unknown io}, which brings a surprising result: the knowledge about $S_\opp$ is irrelevant to \opp, and can not help him achieve anything better than random-like results.
 
 \begin{theorem}\label{theorems: 2d max fcc unknown io}
 When $IM_\rob=\lbrace S_\opp , i_\emptyset \rbrace$, then \[\max \lbrace \mathbb{E}[\fcc_\rob(S_\rob, S_\opp)]\rbrace=\mathbb{E}[\fcc_\rob(S_\rob, S_\opp)]=\frac{N+1}{2}\]
 \end{theorem}
+\begin{proof}
+
+\end{proof}
 
 
 \paragraph{Partial Information - $S_\opp$ is unknown, $i_\opp$ is known - asymmetrical Knowledge} 
-This is the last information model we want in the asymmetrical knowledge case. In this case, we have yet been unable to prove priority of any better-than-random strategy.
-Checking our simulations, we know that indeed, there are some strategies that yield better results; That is, there are some $S^{better}_{\opp}\in \mathcal{S}$ that yield $\mathbb{E}[\fcc(S_\opp=S^{better}_{\opp})] > \frac{N+1}{2}$, but we didn't manage yet to prove what character made them better than other. So we know such better strategies exists.
+This is the last information model we want in the asymmetrical knowledge case. In this case, we have yet been unable to prove superiority of any better-than-random strategy.
+Checking our simulations, we know that indeed, there are some strategies that yield better results; That is, there are some $S^{better}_{\opp}\in \mathcal{S}$ that yield $\mathbb{E}[\fcc(S_\opp=S^{better}_{\opp})] > \frac{N+1}{2}$, but we did not yet manage to prove what character made them better than other. So we know such better strategies exists.
 
-We did prove, in theorem \ref{theorems: 2d known io unknown so} is that playing the same as your opponent is irrelevant.
+We did prove, in Theorem \ref{theorems: 2d known io unknown so} is that playing the same as your opponent is irrelevant.
 \begin{theorem} \label{theorems: 2d known io unknown so}
 When $IM_\rob = \lbrace S_\emptyset, i_o \in \w \rbrace$, then \[\mathbb{E}[\fcc_\rob(S_\rob=S_\opp, S_\opp)] = \mathbb{E}[\fcc_\rob(S_\rob=\cros, S_\opp)] = \frac{N+1}{2}\]
 \end{theorem}
@@ -547,31 +447,31 @@ The next steps in our work will be:
 \begin{enumerate}
 \item Analyze the symmetric game in 1D world.
 
-Up to this point, we considered the asymmetric version of our problem, where \rob knows or does not know different things about \opp, and \opp acts as if it is alone, and it only goal is to cover as fast as possible.
-A more realistic model is the symmetric knowledge, where \opp knows as much about \rob as \rob knows about \opp.
+Up to this point, we considered the asymmetric version of our problem, where \rob knows or does not know {\opp}'s existence, strategy and initial position, and \opp acts as if it is alone, and it only goal is to cover as fast as possible.
+A more realistic model is the symmetric knowledge model, where \opp knows as much about \rob as \rob knows about \opp.
 
 We will go though the four information models available, and will try to find the best strategy for \rob, taking in consideration $S_\opp$, which now will be more complex. Then, we will try to give numerical analyzing about the given \fcc. At the end, the same way as before, we check our results using simple and realistic simulations in order to verify our results.
 
 \item Analyze the symmetric game in 2D world.
 As mentioned above for 1D, we will do the same for 2D.
-We'll start by considering the offline problem, where \rob and \opp need to choose, in advance, what should they do, considering that now \opp knows about \rob (either mere existence, initial position, strategy, or a combination of above).
+We will start by considering the offline problem, where \rob and \opp need to choose, in advance, what they should do, considering that now \opp knows about \rob (either mere existence, initial position, strategy, or a combination of above).
 Going through the four information models, we will try to find what is  best strategy $S_\rob$ for \rob. 
-After that, we will check to see if when considering a finite number of strategies, we are to find some Nash-Equilibrium, where both players have the same information model, and they both prefer to use the same strategy, each of them prefer to stick with its strategy, considering the other one is doing the same. We'll then analyze the results using game-theory tools (for example: is the resulted N.E. is also pareto-optimal?).
+After that, we will check to see if when considering a finite number of strategies, we are to find some Nash-Equilibrium, where both players have the same information model, and they both prefer to use the same strategy, each of them prefer to stick with its strategy, considering the other one is doing the same. We will then analyze the results using game-theory tools.
 
-\item Research the forth information model in 2D asymmetrical world.
+\item Research the fourth information model in 2D asymmetrical world.
 
 As mentioned above, we saw that there are some strategies that yield better-than-random result. 
 We would like to try and find some characteristics which indicates a strategy would be better than others.
 
 \item Implements realistic simulation to 1D and 2D worlds for different cases of information models.
 
-Finally, we would like and test our claims and theorems under real-world constraints. We will use ROS in order to implement the main algorithms and behaviors mentioned above, and check that they are indeed working correctly.
+Finally, we would like and test our claims and theorems under real-world constraints. We will use ROS/Gazebo in order to implement the main algorithms and behaviors mentioned above, and check that they are indeed working correctly.
 We would like to know what changes, if any, are needed in order for them to work correctly.
 
 \end{enumerate}
 
 
 \bibliographystyle{abbrv}
-\bibliography{Share refs}
+\bibliography{SharedParts/refs}
 
 \end{document}

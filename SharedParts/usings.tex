@@ -1,0 +1,76 @@
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{float}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\newcommand{\bigqm}[1][1]{\text{\larger[#1]{\textbf{?}}}}
+\usepackage{tikz,fullpage}
+\usetikzlibrary{arrows, petri, topaths}
+\usepackage{tkz-berge}
+\usepackage[position=top]{subfig}
+\usepackage{verbatim}
+\usepackage{amsthm}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{fancyhdr, setspace, color, soul}
+\usepackage{geometry,polyglossia,fontspec,csquotes, doi}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+% \usepackage[english,hebrew]{babel}
+\usepackage{breqn}
+\usepackage{mdframed}
+\usepackage{dsfont}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{cjhebrew}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{subfig}
+\usepackage{ascii}
+\usepackage{multirow}
+\usepackage{xfrac}
+\usetikzlibrary{arrows, automata, backgrounds,snakes}
+\newfontfamily\hebrewfont{Times New Roman}[Script=Hebrew]
+
+% define MACROS
+\newcommand{\len}{15}
+\newcommand{\LPart}{0.4}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newcounter{casenum}
+\newenvironment{caseof}{\setcounter{casenum}{1}}{\vskip.5\baselineskip}
+\newcommand{\case}[2]{\vskip.5\baselineskip\par\noindent {\bfseries Case \arabic{casenum}:} #1\\#2\addtocounter{casenum}{1}}
+\newcommand\rob{\ensuremath{r}\xspace}
+\newcommand\opp{\ensuremath{o}\xspace}
+\newcommand{\w}{\ensuremath{W}\xspace}
+\newcommand{\fcc}{\ensuremath{FCC}\xspace}
+\newcommand{\gipc}{\ensuremath{GIPC}\xspace}
+\newcommand{\cros}{\ensuremath{CROS}\xspace}
+\newcommand{\coos}{\ensuremath{COS}\xspace}
+\newcommand{\gn}{\ensuremath{GN}\xspace}
+\newcommand{\gf}{\ensuremath{GF}\xspace}
+\newcommand{\go}{\ensuremath{GO}\xspace}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
+\allowdisplaybreaks[2]
+\newtheorem{definition}{Definition}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\def\uncheckmark{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}
+\newcommand{\Cross}{$\mathbin{\tikz [x=1.4ex,y=1.4ex,line width=.2ex, red] \draw (0,0) -- (1,1) (0,1) -- (1,0);}$}%

@@ -5,7 +5,7 @@ The goal of each robot is to cover the area, that is, find a path (denoted as th
 
 The way we define the problem, \rob can be given $i_\opp$, $S_\opp$, both or neither. These types of information are called {\em Information Models}, and defined as follows:
 \begin{definition}[\textbf{Information Model}]
-Let Information Model ($IM$) be $IM \in \lbrace \varnothing, \lbrace S,I\rbrace \rbrace$, where $S\in \mathcal{S} \cup \lbrace S_\emptyset \rbrace$, where $S_\emptyset$ stands for an unknown strategy, and $I \in W \cup \lbrace \w_\emptyset \rbrace$, where $\w_{\emptyset}$ refers to an unknown initial point. 
+Information Model $IM \in \lbrace \varnothing, \lbrace S,I\rbrace \rbrace$, represents the knowledge a robot has on its opponent, where $S\in \mathcal{S} \cup \lbrace S_\emptyset \rbrace$, where $S_\emptyset$ stands for an unknown strategy, and $I \in W \cup \lbrace \w_\emptyset \rbrace$, where $\w_{\emptyset}$ refers to an unknown initial point. 
 If $IM=\varnothing$ then the player of interest does not know its opponent exists.
 Let $IM_\rob$ be the information model \rob is given about \opp, and let $IM_\opp$ be the information model \opp is given about \rob.
 \end{definition}
@@ -13,17 +13,19 @@ Let $IM_\rob$ be the information model \rob is given about \opp, and let $IM_\op
 \opp can operate with or without the knowledge of \rob's existence. We refer to these cases as the {\em symmetric and asymmetric competitive coverage}.
 In the {\em asymmetric} case, $IM_\opp=\varnothing$, and in the {\em symmetric} case, $IM_\opp \neq \varnothing$. In both cases, $IM_\rob \neq \varnothing $.
 
-\rob thrives first to maximize the number of cells it covers before \opp. Denote this value by  
-\[
-\fcc_{x}(S_\rob, S_\opp, i_\rob, i_\opp )=
+\rob thrives first to maximize the number of cells it covers before \opp. Denote this value by 
+\begin{dmath*}[compact]
+\fcc_{x}(S_\rob, S_\opp, i_\rob, i_\opp )= 
 \# \lbrace \textnormal{ First Covered Cells by } x \in \lbrace\rob,\opp\rbrace \rbrace 
-\]
+\end{dmath*}
 When deciding between options with the same \fcc value, \rob will choose the one that yields the fastest world's coverage time - the time it takes \rob to covers all of \w.
 
 Considering all we said above, we define the competitive coverage problem:
-
-\begin{definition}[\textbf{Competitive Coverage Problem}]
 \begin{mdframed}[backgroundcolor=gray!20] 
-Let \w be a finite, obstacles-free grid of size $N$. Let $IM_\rob=\lbrace S_\opp ,i_\opp \rbrace$ the information model given to \rob, and $IM_\opp \in \lbrace \varnothing, \lbrace S_\rob, i_\rob \rbrace \rbrace$. Find: \[ S_\rob^\star \in \mathcal{S} \textnormal{ s.t. } S_\rob^\star =\argmax_{S_\rob\in\mathcal{S}} \lbrace \fcc_{r}(S_\rob, S_\opp, i_\rob, i_\opp ) \rbrace\]
-\end{mdframed}
+\begin{definition}[\textbf{Competitive Coverage Problem}]
+Let \w be a finite, obstacles-free grid of size $N$. Let $IM_\rob=\lbrace S_\opp ,i_\opp \rbrace$ the information model given to \rob, and $IM_\opp \in \lbrace \varnothing, \lbrace S_\rob, i_\rob \rbrace \rbrace$. Find:
+\begin{dmath*}[compact]
+S_\rob^\star \in \mathcal{S} \textnormal{ s.t. } S_\rob^\star =\argmax_{S_\rob\in\mathcal{S}} \lbrace \fcc_{r}(S_\rob, S_\opp, i_\rob, i_\opp ) \rbrace
+\end{dmath*}
 \end{definition}
+\end{mdframed}
