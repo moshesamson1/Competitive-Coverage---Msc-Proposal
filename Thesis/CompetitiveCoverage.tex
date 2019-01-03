@@ -22,6 +22,7 @@
 \newcommand{\bigqm}[1][1]{\text{\larger[#1]{\textbf{?}}}}
 \usepackage{tikz,fullpage}
 \usetikzlibrary{arrows, petri, topaths}
+\usetikzlibrary{calc}
 \usepackage{tkz-berge}
 \usepackage[position=top]{subfig}
 \usepackage{verbatim}
@@ -36,7 +37,7 @@
 \usepackage{xcolor}
 \usepackage{mdframed}
 \usepackage{xspace}
-
+\usepackage{xparse}
 
 \usetikzlibrary{arrows, automata, backgrounds,snakes}
 % End
@@ -50,23 +51,31 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{Example}{Example}[section]
 \newtheorem*{remark}{Remark}
+\newtheorem{definition}{Definition}
 \newcounter{casenum}
 \newenvironment{caseof}{\setcounter{casenum}{1}}{\vskip.5\baselineskip}
 \newcommand{\case}[2]{\vskip.5\baselineskip\par\noindent {\bfseries Case \arabic{casenum}:} #1\\#2\addtocounter{casenum}{1}}
+\newcommand{\fb}[1]{\dofb#1}
+\newcommand{\dofb}[1]{\textbf{#1}}
 \newcommand\rob{\ensuremath{r}\xspace}
 \newcommand\opp{\ensuremath{o}\xspace}
 \newcommand{\w}{\ensuremath{W}\xspace}
 \newcommand{\fcc}{\ensuremath{FCC}\xspace}
 \newcommand{\cros}{\ensuremath{CROS}\xspace}
 \newcommand{\coos}{\ensuremath{COS}\xspace}
+\newcommand{\itf}{\ensuremath{ITF}\xspace}
 \newcommand{\gn}{\ensuremath{GN}\xspace}
 \newcommand{\gf}{\ensuremath{GF}\xspace}
 \newcommand{\go}{\ensuremath{GO}\xspace}
+\newcommand{\A}{\ensuremath{\mathcal{A}}\xspace}
+\newcommand{\B}{\ensuremath{\mathcal{B}}\xspace}
+\NewDocumentCommand{\rbs}{ O{\ensuremath{\mathcal{S}}} O{\ensuremath{\mathcal{P}}}}{\ensuremath{{RBS}_{#1,#2}}\xspace}
+\NewDocumentCommand{\crbs}{ O{\ensuremath{\mathcal{S}}} O{\ensuremath{\mathcal{P}}}}{\ensuremath{{CRBS}_{#1,#2}}\xspace}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclareMathOperator*{\argmax}{arg\,max} % Jan Hlavacek
 \allowdisplaybreaks[2]
-\newtheorem{definition}{Definition}
 
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
@@ -922,8 +931,7 @@ If $\frac{d}{6}<r<\frac{d}{3}$, \opp can fall in $3r-\frac{d}{2}$. And of course
 \[P\left(\frac{d}{2}<o<3r\right)=\frac{\int_{0}^{\frac{d}{6}} 0 \,dx + \int_{\frac{d}{6}}^{\frac{d}{3}} 3x-\frac{d}{2} \,dx + \int_{\frac{d}{3}}^{\frac{d}{2}} \frac{d}{2} \,dx}{\frac{d^2}{4}}=\frac{\left[\frac{3x^2}{2}-\frac{d}{2}\cdot x\right]_{\frac{d}{3}}^{\frac{d}{6}} + \left[\frac{d}{2}\cdot x\cdot x\right]_{\frac{d}{2}}^{\frac{d}{3}}}{\frac{d^2}{4}}=\frac{1}{2}\].
 
 And, the probability for the first case, is \[P\left(o>r\right)=\frac{1}{2}\]
-The probability for the total case is the cumulative distribution over half the world: $\frac{1}{2}$.
-}
+The probability for the total case is the cumulative distribution over half the world: $\frac{1}{2}$.}
 
 \case{Putting it all together}
 {
@@ -1038,7 +1046,7 @@ In the asymmetric-information case, in order to maximize the averaged \fcc, \rob
 Here, in the same way as before, we would like to find a Nash-Equilibrium for the case where both players know about their opponent existence, but nothing else.
 Our first and most obvious choice will be $\lbrace \gf, \gf \rbrace$, follows directly from the symmetrical case.
 The proof is pretty simple: assuming that $S_\opp = \gf$, \rob does not want to switch from \gf to \gn, as known from \ref{subsections: 1D, known strategy, hidden position}. This also the case when $S_\opp=\gf$.
-Since both players have symmetrical information, one can change between \rob and \opp, finishing the proof. (\todo
+Since both players have symmetrical information, one can change between \rob and \opp, finishing the proof. 
 
 
 
@@ -1049,8 +1057,8 @@ Since both players have symmetrical information, one can change between \rob and
 \section{2D World}
 Up to this point we consider \w to be the simplest: only one dimension, with nearly perfect initial information for \rob about \opp. We will now make things a bit more interesting, by considering a more realistic, 2D world.
 \subsection{Complete-Information}
-In this section we consider the case in which \rob has complete information on \opp's initial location and strategy, and describe an optimal strategy for \rob that first maximizes $\textnormal{\fcc}_r$, then minimizes the covering time. We show that a simple algorithm, \textbf{GIPC},  that finds first the quickest interception point with \opp's path, and then plays $S_{\opp}$, is optimal.
-%We claim that the following algorithm does so: Find the closest interception point. Go there, and from there play $S_{\opp}$. Since \rob Go to Interception point, then Copy, lets call it \textbf{GIPC}. Note that \textbf{GIPC} is sane.
+In this section we consider the case in which \rob has complete information on \opp's initial location and strategy, and describe an optimal strategy for \rob that first maximizes $\textnormal{\fcc}_r$, then minimizes the covering time. We show that a simple algorithm, \textbf{I}ntercept \textbf{T}hen \textbf{F}ollow (\itf),  that finds first the quickest interception point with \opp's path, and then plays $S_{\opp}$, is optimal.
+
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -1063,12 +1071,12 @@ In this section we consider the case in which \rob has complete information on \
     \ENDLOOP
   
 \end{algorithmic}
-\caption{GIPC\label{lss}}
+\caption{\itf\label{lss}}
 \end{algorithm}
 
-\subsubsection{\textbf{GIPC} - Optimality proof}\label{subsection:GIPC, optimality proof}
-We now prove that \textbf{GIPC} maximizes $\textnormal{\fcc}_{\rob}$, given full information. 
-\begin{lemma}\label{lemmas:GIPC optimality lower i_t higher FCC}
+\subsubsection{\textbf{\itf} - Optimality proof}\label{subsection:ITF, optimality proof}
+We now prove that \textbf{itf} maximizes $\textnormal{\fcc}_{\rob}$, given full information. 
+\begin{lemma}\label{lemmas:ITF optimality lower i_t higher FCC}
 Let $S_{\opp}$ be \opp's complete algorithm. Let $S_{\rob}^1,S_{\rob}^2$ be sane algorithms for \rob, with $i_t^{S_{\opp} S_{\rob}^1}$ and $i_t^{S_{\opp} S_{\rob}^2}$ interception times, respectively. Then, if $i_t^{S_{\opp} S_{\rob}^1} < i_t^{S_{\opp} S_{\rob}^2}\Rightarrow \fcc_{\rob}(S_{\rob}^1, S_{\opp}) > \fcc_{\rob}^(S_{\rob}^2, S_{\opp})$
 \end{lemma}
 
@@ -1088,7 +1096,7 @@ For a rectangular world of size $\sqrt{N} \times \sqrt{N}$, the longest path \ro
 %Assuming there are more than 16 cells in \w is a reasonable assumption, completing our proof.
 \end{proof}
 
-\begin{lemma} \label{lemmas: GIPC optimality prefer S with i_p}
+\begin{lemma} \label{lemmas: ITF optimality prefer S with i_p}
 Let $S_{\opp}$ be \opp's coverage algorithm, and let $S_{\rob}^1$ be \rob's algorithm s.t. $\nexists i_p^{S_{\opp} S_{\rob}^1}$, then if $\exists S_{\rob}^2$ s.t. $S_{\rob}^2$ is sane and $\exists i_p^{S_{\opp} S_{\rob}^2}\Rightarrow \exists S_{\rob}^{\star}$ s.t. $S_{\rob}^{\star}$ is sane and $\fcc(S_{\rob}^1, S_{\opp}) < \fcc(S_{\rob}^{\star}, S_{\opp})$.
 \end{lemma}
 
@@ -1102,21 +1110,21 @@ Following Lemma \ref{lemmas: bound on interception time}, since $i_t^{S_{\opp} S
 Let $S_{\opp}$ be some complete coverage algorithm for \opp. Let $S_{\rob}$ be a sane coverage algorithm for \rob, then if $S_{\rob}$ minimizes $i_t^{S_{\opp} S_{\rob}}$ the it is optimal for \rob. i.e. $S_{\rob}$ maximizes $\fcc_{\rob}(S_{\rob}, S_{\opp})$.
 \end{theorem}
 \begin{proof}
-This follows directly from Lemmas \ref{lemmas:GIPC optimality lower i_t higher FCC}  and \ref{lemmas: GIPC optimality prefer S with i_p}: Since \rob goes directly toward the interception point, and from there, plays $S_{\opp}$ as $S_{\rob}$(\ref{lemmas: GIPC optimality prefer S with i_p}), and then we would like to find the earliest interception point possible, since it would yield the the highest $\fcc_{\rob}(S_{\rob}^\star, S_{\opp})$ possible (\ref{lemmas:GIPC optimality lower i_t higher FCC}).
+This follows directly from Lemmas \ref{lemmas:ITF optimality lower i_t higher FCC}  and \ref{lemmas: ITF optimality prefer S with i_p}: Since \rob goes directly toward the interception point, and from there, plays $S_{\opp}$ as $S_{\rob}$(\ref{lemmas: ITF optimality prefer S with i_p}), and then we would like to find the earliest interception point possible, since it would yield the the highest $\fcc_{\rob}(S_{\rob}^\star, S_{\opp})$ possible (\ref{lemmas:ITF optimality lower i_t higher FCC}).
 \end{proof}
 
 \subsubsection{Best-Case and Max-Min}
-In the previous subsection \ref{subsection:GIPC, optimality proof}, we considered \fcc to be our target function, and we tried to maximize it. In other information models, we'll look at $\mathbb{E}[\fcc]$ instead of only \fcc, averaging on different values, according to the relevant known information.
+In the previous subsection \ref{subsection:ITF, optimality proof}, we considered \fcc to be our target function, and we tried to maximize it. In other information models, we'll look at $\mathbb{E}[\fcc]$ instead of only \fcc, averaging on different values, according to the relevant known information.
 But there are other criteria we can take in consideration in order to assess the qualities of one strategy or another.
 We now consider two new criteria: best case and max-min.
 In the \textbf{best case}, \rob starts in the interception point. From there, it has no path to go before starting to intercept \opp, thus \[\max[\fcc] = m\cdot n-1\] where $m,n$ are the width and height of our world.
 In the \textbf{worst case}, \rob needs to walk the max number of cells before reaching the interception point, which is the sum of the width and height of our world \w. The worst case leads to profit of: \[\min[\fcc] = m\cdot n - \sqrt{m^2 + n^2} - 1\]
 
-We claim that GIPC maximizes both the best-case and max-min criteria. The proof for the first is trivial, and for the second is easy to show after knowing lemma \ref{lemmas:GIPC optimality lower i_t higher FCC}, and is left to the reader.
+We claim that \itf maximizes both the best-case and max-min criteria. The proof for the first is trivial, and for the second is easy to show after knowing lemma \ref{lemmas:ITF optimality lower i_t higher FCC}, and is left to the reader.
 
 
 \subsubsection{Expected Profit - Exact calculation}
-In \ref{subsection:GIPC, optimality proof}, we proved the optimality of GIPC. It derive directly GIPC also maximizes $\mathbb{E}[\fcc]$. Using this strategy, the profit for each game is the size of the world $N$, minus the number of steps it takes for \rob to reach the interception point $i_p$.
+In \ref{subsection:ITF, optimality proof}, we proved the optimality of \itf. It derive directly \itf also maximizes $\mathbb{E}[\fcc]$. Using this strategy, the profit for each game is the size of the world $N$, minus the number of steps it takes for \rob to reach the interception point $i_p$.
 Since $N$ is constant, and according to the rules of expected value, the total expected \fcc is: \[\mathbb{E}\left[\fcc\right]=N-\mathbb{E}\left[i_p^t \Leftrightarrow\textnormal{steps to interception point}\right]\]
 
 Where: \[\mathbb{E}\left[i_p^t\right]=\sum_{s}{s\cdot P\left(i_p^t=s\right)}\]
@@ -1155,29 +1163,29 @@ The second part is identical to the first, except for the range the cells are di
 
 \end{proof}
 
-According to \ref{lemmas:ExpectedDistanceTwoCellsRectangular}, we can finally compute the exact $\mathbb{E}[\fcc]$ over world of size $m\times n$, using GIPC as $S_{\rob}$, to be: \[\mathbb{E}\left[\fcc\right]=m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}\]
+According to \ref{lemmas:ExpectedDistanceTwoCellsRectangular}, we can finally compute the exact $\mathbb{E}[\fcc]$ over world of size $m\times n$, using \itf as $S_{\rob}$, to be: \[\mathbb{E}\left[\fcc\right]=m\cdot n-\frac{\left(m+1\right)\left(m-1\right)}{3m}-\frac{\left(n+1\right)\left(n-1\right)}{3n}\]
 
 \subsubsection{Experiments}
 First, we tested lemma \ref{lemmas:ExpectedDistanceTwoCellsRectangular}. Using simple python code, we checked the distance between points in different world sizes. Considering a world of size $1000 \times 2000$, we expected the average distance between points to be $999.9995$. After running for 10,000,000 iterations, we got $1000.0604394$.
 Doing the same check, over world of size $500\times 3000$, expecting to get $1166.66588889$, we got $1166.8190994$. Again, a considerably correct result.
 
-Next, we wanted to test the expected profit, when $S_{\rob} = GIPC$. For that, we ran simulations (with agents and behaviors), over world of size $100 \times 100$, expecting the results to be $9933.34$.
+Next, we wanted to test the expected profit, when $S_{\rob} = \itf$. For that, we ran simulations (with agents and behaviors), over world of size $100 \times 100$, expecting the results to be $9933.34$.
 The average gain we got is $9933.613$.
 
-The simulation process is described in algorithm \ref{algorithms:GIPC simulations}
+The simulation process is described in algorithm \ref{algorithms:ITF simulations}
 \begin{algorithm}
 \begin{algorithmic}
     \FOR {x=100000 iterations}
     	\STATE Choose $i_{\opp}\in \left[0,99\right]$ in random
         \STATE Choose $i_{\rob}\in \left[0,99\right]$ in random
         \STATE Choose $S_{\opp}\in \mathcal{S}$ in random
-        \STATE $S_{\rob} \leftarrow GIPC\left(S_{\opp}, i_{\opp}\right)$
+        \STATE $S_{\rob} \leftarrow \itf\left(S_{\opp}, i_{\opp}\right)$
     	\STATE sum $\leftarrow $ sum$+ {\fcc}_{\rob}(S_{\rob},S_{\opp}, i_{\rob}, i_{\opp})$
     \ENDFOR
     \RETURN sum$/x$
   
 \end{algorithmic}
-\caption{Simulation, Full Knowledge, using GIPC\label{algorithms:GIPC simulations}}
+\caption{Simulation, Full Knowledge, using \itf\label{algorithms:ITF simulations}}
 \end{algorithm}
 
 
@@ -1326,9 +1334,10 @@ First of all, let us define covering time:
 \begin{definition}[\textbf{Covering-Time}]
 the Covering-Time of cell $c_i$ by \rob, using the coverage strategy $S_{\rob}$ is the time \rob first visits $c_i$, according to $S_{\rob}$. This value is denoted by ${CT}_{S_{\rob}}(c_i)$.
 \end{definition}
-Now, since $S_{\rob}$ and $S_{\opp}$ are optimal-cyclic-coverage strategies, which means they start and stop at the same position, visiting each cell exactly once (since we assume a rectangular world with no obstacles, such a path exists). We can say that each strategy create a 'chain' from all the cells in the world $c_0,...,c_{N-1}$. In this chain, the relative place a cell $c_i$ appears in is its ${CT}_{S_{\rob}}(c_i)$ (We are talking about \rob,  from now on, but all of this is the same for \opp). Here is an illustration of our covering-chains:
+Now, since $S_{\rob}$ and $S_{\opp}$ are optimal-cyclic-coverage strategies, which means they start and stop at the same position, visiting each cell exactly once (since we assume a rectangular world with no obstacles, such a path exists). We can say that each strategy create a 'chain' from all the cells in the world $c_0,...,c_{N-1}$. In this chain, the relative place a cell $c_i$ appears in is its ${CT}_{S_{\rob}}(c_i)$ (We are talking about \rob,  from now on, but all of this is the same for \opp). In Figure \ref{Figures: covering chain 1} we see an illustration of our covering-chains.
 \begin{figure}
 \centering
+
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
                     semithick]
   \tikzstyle{every state}=[fill=red,draw=none,text=white]
@@ -1346,11 +1355,11 @@ Now, since $S_{\rob}$ and $S_{\opp}$ are optimal-cyclic-coverage strategies, whi
         (E) edge [bend left] node {} (A);
 \end{tikzpicture}
 
-\caption{An example for a covering chain, where coverage path starts at $c_0$}
+\caption{An example for a covering chain, where coverage path starts at $c_0$} \label{Figures: covering chain 1}
 \end{figure}
 
 
-Now, understand this: each starting position $i_r$ determines the covering time of all the cells $c_0,...,c_{N-1}$; Since we assumed the strategy is known before hand, then, for \opp,  the covering time is set after $i_{\opp}$ is known, and changing it changes for all the cells their covering time. Here is an illustration:
+Now, understand this: each starting position $i_r$ determines the covering time of all the cells $c_0, \hdots,\allowbreak c_{N-1}$; Since we assumed the strategy is known before hand, then, for \opp,  the covering time is set after $i_{\opp}$ is known, and changing it changes for all the cells their covering time. Illustration is shown in Figure \ref{Figures: covering chain 2}:
 
 \begin{figure}
 \centering
@@ -1372,6 +1381,7 @@ Now, understand this: each starting position $i_r$ determines the covering time 
 \end{tikzpicture}
 
 \caption{An example for a covering chain, where coverage path starts at $c_2$.}
+\label{Figures: covering chain 2}
 \end{figure}
 As can be seen in the examples above, changing $i_{\opp}$ directly changes the Covering-Time values of all vertices accordingly.
 As the reader can see, since $S_{\opp}$ is set, then for any $c_i$ we'll get $CT_{S_{\opp}}(c_i)=0$ if $i_{\opp}=c_i$, and $CT_{S_{\opp}}(c_i)=N-1$ if $i_0=c_{N-1}$. More generally: if $i_{\opp}=c_j$ where $j$ ranges from $0$ to $N-1$, then $CT_{S_{\opp}}(c_i)=\abs{i-j}\in [0,N-1]$.
@@ -1466,9 +1476,100 @@ About this model of information, we have not a lot to say. From experiments, we 
 
 \subsection{Temporary Conclusions}
 This subsection will contain our conclusions, regarding this part of the research: what were the assumptions we made, what we found and what not, and what are we going to discuss next.
+
+\section{2D World - Symmetric}
+To this point we considered only the asymmetric problem: where only \rob has information about \opp, and not vice versa. The immediate question after that, is how to tackle this problem when there symmetric information model, and the opponent \opp has (some or full knowledge about \rob initial position or strategy.
+We are first going to discuss this problem as Leader-Follower Game.
+
+\subsection{Leader-Follower Game}
+The Leader-Follower Game, also known as Stackelberg game, is a well-known Game-type from game theory, in which the second player makes his decision after observing the decision of the leader. 
+Generally, in such problems, there is the first player (denoted as 'Player A'), who optimizes the upper-level problem, and there is the second player (denoted as 'Player B'), who optimizes the lower-level. Both players decide on strategy before the game starts. We would like to model our problem as an LFG.
+
+Let $S=\{s_1,\hdots,s_k\}$ be the available discrete strategies, and let $P=\{p_1,...,p_k\}$ be a vector of probabilities, where $\sum_i p_i=1$.
+
+\begin{definition} [\rbs]
+Let \rbs (\fb{Random} \fb{Between} \fb{Strategies}) be selecting strategy $s \in \mathcal{S}$ according to probability distribution $\mathcal{P}$ over $\mathcal{S}$. 
+\end{definition}
+
+
+\begin{definition}[\crbs]
+Let \crbs (\fb{Counter} \rbs) be choosing $\overline{S_{i^\star}}$ where \[i^\star=\argmax_i\sum_{j=1}^{k} p_i\cdot\fcc_B(S_j,\overline{S_i})\]
+\end{definition}
+
+Consider player $B$'s point of view: after $A$ played there is no randomness, and $B$ plays the optimal response $\itf(S_A)$ to $A$'s strategy $S_A$. The prove of correctness follows directly from the optimality of \itf and selection of $i^{\star}$ in \crbs.
+
+Now, consider $A$'s point of view. As before, $A$ is given a set of possible strategies $\mathcal{S}$, and creates the probabilities vector $\mathcal{P}$ over $\mathcal{S}$.
+$A$ knows that player $B$ plays \crbs, which will maximize its own expected utility.
+So, consider the following question: what $A$ should do given $B$'s optimal response? More formally, we want to find $P_A$ such that:
+\[P_A^{\star}=\argmax_{P}{U_A(\rbs,\crbs)}=\argmax_{P}{\sum_{i=1}^{\abs*{\mathcal{P}}}p_i\cdot \fcc_A(S_i,\overline{S_{i^{\star}}})}\]
+
+Let's minimize the problem to only two strategies: consider $\abs{S}=2$. We would like to find the best probabilities $P^A=p_1^A,p_2^A$ for $A$, given that $B$ plays \crbs. Assume that \[\fcc_B(S_1,S_1')=80, \fcc_B(S_1,S_2')=50, \fcc_B(S_2,S_1')=50,\fcc_B(S_2,S_2')=90\]
+
+In Table \ref{tables: example result}, we can see $A$'s probabilities, the best strategy for $B$ given those values and the respected utility, and finally $A$ utility given $B$ strategy.
+We can see that when $A$ chooses $s_1$ with probability 0.6, $A$ maximizes its utility (expected $\fcc_A$). This proves that giving all strategies the same probability is non-optimal, and therefore we would like to find the optimal probabilities $P^A=(p_1^A,p_2^A)$ for $A$, given $B$ is playing \crbs.
+
+\begin{figure}[H]
+\begin{tabular}{llllll}
+\hline
+{$p_1^A$} & 
+{$p_2^A$} & {$B$ optimal strategy} & {$B$ optimal utility} & {$A$ utility} &  \\ \hline
+\multicolumn{1}{|l|}{0.0}             & \multicolumn{1}{l|}{1.0}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{90}                         & \multicolumn{1}{l|}{10}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.1}             & \multicolumn{1}{l|}{0.9}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{86}                         & \multicolumn{1}{l|}{14}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.2}             & \multicolumn{1}{l|}{0.8}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{82}                         & \multicolumn{1}{l|}{18}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.3}             & \multicolumn{1}{l|}{0.7}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{78}                         & \multicolumn{1}{l|}{22}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.4}             & \multicolumn{1}{l|}{0.6}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{74}                         & \multicolumn{1}{l|}{26}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.5}             & \multicolumn{1}{l|}{0.5}              & \multicolumn{1}{l|}{$\overline{S_2}$}            & \multicolumn{1}{l|}{70}                         & \multicolumn{1}{l|}{30}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.6}             & \multicolumn{1}{l|}{0.4}              & \multicolumn{1}{l|}{$\overline{S_1}$}            & \multicolumn{1}{l|}{68}                         & \multicolumn{1}{l|}{32}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.7}             & \multicolumn{1}{l|}{0.3}              & \multicolumn{1}{l|}{$\overline{S_1}$}            & \multicolumn{1}{l|}{71}                         & \multicolumn{1}{l|}{29}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.8}             & \multicolumn{1}{l|}{0.2}              & \multicolumn{1}{l|}{$\overline{S_1}$}            & \multicolumn{1}{l|}{74}                         & \multicolumn{1}{l|}{26}                 &  \\ \cline{1-5}
+\multicolumn{1}{|l|}{0.9}             & \multicolumn{1}{l|}{0.1}              & \multicolumn{1}{l|}{$\overline{S_1}$}            & \multicolumn{1}{l|}{77}                         & \multicolumn{1}{l|}{23}                 &  \\ \cline{1-5}
+1.0                                   & 0.0                                   & $\overline{S_1}$                                 & 80                                              & 20                                      &  \\ \hline
+\end{tabular}
+\label{tables: example result}
+\end{figure}
+
+\subsubsection{Strong Stackelberg Equilibrium}
+The obvious solution for such a game is finding what is called a strong stackleberg equilibrium (SSE). An intuitive definition is given in \cite{korzhyk2011stackelberg}:
+\begin{quote}
+    The typical solution concept applied to these games is Strong  Stackelberg Equilibrium (SSE), which assumes that the defender will choose an optimal mixed (randomized) strategy based on the assumption that the attacker will observe this strategy and choose an optimal response.
+\end{quote}
+
+The work in  \cite{korzhyk2011stackelberg} is a good example as to how one can use SSE to solve these kinds of problem. In our case (full information - formalize), the possible strategies are $\mathcal{S}=\{S_1,S_2,...,S_k\}$ and $\mathcal{\overline{S}}=\{\overline{S_1},\overline{S_2},...,\overline{S_k}\}$ (where $\mathcal{\overline{S}}$ are possible since we considered this as a leader-follower game), and we know that given \A's choice (a mixed strategy $P$), \B will choose the strategy that maximizes its expected utility. Given that, what \A should do?
+A strong stackleberg equilibrium to this problem will be setting probabilities $P=\{p_1,...,p_k\}$ over $\mathcal{S}$ (a mixed strategy) based on the assumption \B will observe this strategy and choose the optimal response, which in turn \A will try to minimize. That is: \A's task is to find $P_{\A}^*$ s.t. \[P_{\A}^*=\argmax_{P_{\A}=\{p_1,...,p_k\}}\sum_{j=1}^{k}{p_j\cdot \fcc_B(S_j,\crbs[\mathcal{S}][P_{\A}])}\]
+
+\subsubsection{Nash Equilibrium and Strong Stackleberg Equilibrium}
+Consider the following $2\times 2$ game.
+\begin{Example}
+Assume \A can choose between two possible probability distributions $D_{\A}=\{d_1,d_2\}$, each is distribution of probabilities over $\mathcal{S}$, and \B can choose between the the distributions $D_{\B}= \{d_3,d_4\}$, also over $\mathcal{S}$. Note that in this example there is no limitation over the possible strategies, only over the possible distributions each player can set over the strategies. This means that $D\in[0,1]^{\abs*{\mathcal{S}}}$.
+The utilities are given in Figure \ref{tables: example SSE 2X2}.
+\begin{figure} 
+\centering
+\begin{tabular}{|c|c|c|} 
+  -- & $d_3$ & $d_4$\\
+  \hline $d_1$ & (10,90) & (60,40)\\
+  \hline $d_2$ & (50,50) & (30,70)\\
+\end{tabular}
+\caption{Example for $2 \times 2$ possible distributions. $d_3$ and $d_4$ sets probability 1 to a single strategy according to \crbs[\mathcal{S}][d_{1/2}]} \label{tables: example SSE 2X2}
+\end{figure}
+
+
+The key observer will see there is a no pure Nash equilibrium in this case, and a single mixed Nash equilibria: $(d_1, d_2) = (0.2857,0.7143)$ and $(d_3, d_4) = (0.4286,0.5714)$
+
+Trying to achieve SSE, \A needs to select between $d_1$ and $d_2$. If choosing $d_1$, then \B maximizes its utility by choosing $d_3$, leaving only 10 to \A. But, if choosing $d_2$, \B now maximizes its utility by choosing $d_4$, leaving 30 to \A. Therefore, a SSE will be $(d_2,d_4)$ (which is not pure or mixed NE).
+
+\end{Example}
+
+In the example above, the distributions $D\sim \mathcal{S}$ are known and finite, and the choice is between them. Solving the problem in that case is considered to be easy.
+But, given only $\mathcal{S}$, we need to create $D \sim S$, and when $\abs*{\mathcal{S}}=k$ then $D\subseteq[0,1]^{k}$ where each $d_i\in D$ sums to 1. There are infinite values as such, and we need a way to reduce this number.
+
+\paragraph{Finding Specific $d_j\in D$}
+
+
+
 \section{CONCLUSIONS}
 
-A conclusion section is not required. Although a conclusion may review the main points of the paper, do not replicate the abstract as the conclusion. A conclusion might elaborate on the importance of the work or suggest applications and extensions. 
+Fill in conclusion...
+
 
 
 
@@ -1476,6 +1577,7 @@ A conclusion section is not required. Although a conclusion may review the main 
 \bibliography{refs}
 
 \end{document}
+
 
 
 
