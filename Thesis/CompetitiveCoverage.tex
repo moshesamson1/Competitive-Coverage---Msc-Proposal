@@ -19,17 +19,15 @@
 \usepackage{dsfont}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
-\newcommand{\bigqm}[1][1]{\text{\larger[#1]{\textbf{?}}}}
 \usepackage{tikz,fullpage}
-\usetikzlibrary{arrows, petri, topaths}
-\usetikzlibrary{calc}
+\usetikzlibrary{arrows, petri, topaths, calc}
 \usepackage{tkz-berge}
 \usepackage[position=top]{subfig}
 \usepackage{verbatim}
 \usepackage{amsthm}
 \usepackage{pgf}
 \usepackage{tikz}
-\usepackage[utf8]{inputenc}
+% \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{breqn}
 \usepackage{dsfont}
@@ -462,7 +460,7 @@ Follows directly from lemmas 4.5 to 4.7.
 
 \subsection{Problems 3(Known strategy, unknown position)}\label{subsections: 1D, known strategy, hidden position}
 In this part, we will consider the problems in which \opp initial position is unknown to us, and therefore we need to compute the expected profits, and the probabilities for them to occur.
-\subsubsection{$S_{\opp}=\gn$}
+\subsubsection{\ensuremath{S_{\opp}=\gn}}
 \begin{caseof}
   \case{$ \opp \in \left(0,r\right),S_{\opp}=\gn$}
   {
@@ -589,7 +587,7 @@ E_{S_{\rob}=\gf,S_{\rob}=\gn}=\frac{\sum_{o=0}^{d}{f_{B}\left(o\right)\cdot P_{B
 \includegraphics[width=\textwidth]{Images/E1_E2_p2A_abs.png}
 \caption{Utility functions, $i_{\rob}$ values vs. Expected profits, for $0<i_{\opp}<100$}
 \end{figure}}
-\subsubsection{$S_{\opp}=\gf$}
+\subsubsection{\ensuremath{S_{\opp}=\gf}}
 As the title indicates, throughout this section assume the $S_{\opp}=\gf$. Let us compute the profit and probability for each case of \opp initial position, and use that to compute the total expected profit for this section.
 \begin{caseof}
   \case{$ \opp \in\left(0,r\right)$}
@@ -1478,7 +1476,7 @@ About this model of information, we have not a lot to say. From experiments, we 
 This subsection will contain our conclusions, regarding this part of the research: what were the assumptions we made, what we found and what not, and what are we going to discuss next.
 
 \section{2D World - Symmetric}
-To this point we considered only the asymmetric problem: where only \rob has information about \opp, and not vice versa. The immediate question after that, is how to tackle this problem when there symmetric information model, and the opponent \opp has (some or full knowledge about \rob initial position or strategy.
+Up to this point we considered only the asymmetric problem: where only \rob has information about \opp, and not vice versa. The immediate question after that, is how to tackle this problem when there symmetric information model, and the opponent \opp has (some or full knowledge about \rob initial position or strategy.
 We are first going to discuss this problem as Leader-Follower Game.
 
 \subsection{Leader-Follower Game}
@@ -1509,6 +1507,7 @@ In Table \ref{tables: example result}, we can see $A$'s probabilities, the best 
 We can see that when $A$ chooses $s_1$ with probability 0.6, $A$ maximizes its utility (expected $\fcc_A$). This proves that giving all strategies the same probability is non-optimal, and therefore we would like to find the optimal probabilities $P^A=(p_1^A,p_2^A)$ for $A$, given $B$ is playing \crbs.
 
 \begin{figure}[H]
+\centering
 \begin{tabular}{llllll}
 \hline
 {$p_1^A$} & 
@@ -1525,7 +1524,7 @@ We can see that when $A$ chooses $s_1$ with probability 0.6, $A$ maximizes its u
 \multicolumn{1}{|l|}{0.9}             & \multicolumn{1}{l|}{0.1}              & \multicolumn{1}{l|}{$\overline{S_1}$}            & \multicolumn{1}{l|}{77}                         & \multicolumn{1}{l|}{23}                 &  \\ \cline{1-5}
 1.0                                   & 0.0                                   & $\overline{S_1}$                                 & 80                                              & 20                                      &  \\ \hline
 \end{tabular}
-\label{tables: example result}
+\caption{Experimental Results}\label{tables: example result}
 \end{figure}
 
 \subsubsection{Strong Stackelberg Equilibrium}
@@ -1535,7 +1534,11 @@ The obvious solution for such a game is finding what is called a strong stackleb
 \end{quote}
 
 The work in  \cite{korzhyk2011stackelberg} is a good example as to how one can use SSE to solve these kinds of problem. In our case (full information - formalize), the possible strategies are $\mathcal{S}=\{S_1,S_2,...,S_k\}$ and $\mathcal{\overline{S}}=\{\overline{S_1},\overline{S_2},...,\overline{S_k}\}$ (where $\mathcal{\overline{S}}$ are possible since we considered this as a leader-follower game), and we know that given \A's choice (a mixed strategy $P$), \B will choose the strategy that maximizes its expected utility. Given that, what \A should do?
-A strong stackleberg equilibrium to this problem will be setting probabilities $P=\{p_1,...,p_k\}$ over $\mathcal{S}$ (a mixed strategy) based on the assumption \B will observe this strategy and choose the optimal response, which in turn \A will try to minimize. That is: \A's task is to find $P_{\A}^*$ s.t. \[P_{\A}^*=\argmax_{P_{\A}=\{p_1,...,p_k\}}\sum_{j=1}^{k}{p_j\cdot \fcc_B(S_j,\crbs[\mathcal{S}][P_{\A}])}\]
+A strong stackleberg equilibrium to this problem will be setting probabilities $P=\{p_1,...,p_k\}$ over $\mathcal{S}$ (a mixed strategy) based on the assumption \B will observe this strategy and choose the optimal response, which in turn \A will try to minimize. That is: \A's task is to find $P_{\A}^*$ s.t.
+\begin{equation} \label{equations: optimal Pa}
+  P_{\A}^*=\argmax_{P_{\A}=\{p_1,...,p_k\}}\sum_{j=1}^{k}{p_j\cdot \fcc_B(S_j,\crbs[\mathcal{S}][P_{\A}])}  
+\end{equation}
+
 
 \subsubsection{Nash Equilibrium and Strong Stackleberg Equilibrium}
 Consider the following $2\times 2$ game.
@@ -1563,6 +1566,12 @@ In the example above, the distributions $D\sim \mathcal{S}$ are known and finite
 But, given only $\mathcal{S}$, we need to create $D \sim S$, and when $\abs*{\mathcal{S}}=k$ then $D\subseteq[0,1]^{k}$ where each $d_i\in D$ sums to 1. There are infinite values as such, and we need a way to reduce this number.
 
 \paragraph{Finding Specific $d_j\in D$}
+First, one can notice that the possible distributions for \B are, in the end, the possible strategies (as in the Leader-Follower game, the follower will simply find the optimal strategy that maximizes its expected utility: \crbs).
+
+The problem can be formalized using Equation \ref{equations: optimal Pa}. This is equivalent to asking: ... \textbf{Complete this}
+
+\subsubsection{Zero Information}
+
 
 
 
@@ -1574,7 +1583,7 @@ Fill in conclusion...
 
 
 \bibliographystyle{abbrv}
-\bibliography{refs}
+\bibliography{SharedParts/refs}
 
 \end{document}
 
