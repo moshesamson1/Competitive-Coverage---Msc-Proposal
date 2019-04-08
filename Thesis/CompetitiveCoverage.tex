@@ -1565,12 +1565,19 @@ Trying to achieve SSE, \A needs to select between $d_1$ and $d_2$. If choosing $
 In the example above, the distributions $D\sim \mathcal{S}$ are known and finite, and the choice is between them. Solving the problem in that case is considered to be easy.
 But, given only $\mathcal{S}$, we need to create $D \sim S$, and when $\abs*{\mathcal{S}}=k$ then $D\subseteq[0,1]^{k}$ where each $d_i\in D$ sums to 1. There are infinite values as such, and we need a way to reduce this number.
 
-\paragraph{Finding Specific $d_j\in D$}
+\paragraph{Finding the optimal strategy $d^*\in D$}
 First, one can notice that the possible distributions for \B are, in the end, the possible strategies (as in the Leader-Follower game, the follower will simply find the optimal strategy that maximizes its expected utility: \crbs).
 
-The problem can be formalized using Equation \ref{equations: optimal Pa}. This is equivalent to asking: ... \textbf{Complete this}
+% The problem can be formalized using Equation \ref{equations: optimal Pa}. This is equivalent to asking: ... \textbf{Complete this}
+
+Again, \A's task is to find $d^*\in D$ s.t. $d$ maximizes the expected utility for \A. That is, finding \[d^*=\argmax_{d\in D}{\sum_{j=1}^{k}{d_j\cdot \fcc_A(S_j,\crbs[\mathcal{S}][d])}}\]
+To find such $d^*$, derive by 
 
 \subsubsection{Zero Information}
+When considering zero information, the problem becomes simpler. In this model, \B plays after \A plays, but know nothing about \A's strategy. Obviously, so does \A over \B (because he is the leader). 
+
+The problem reduces to the simple one of finding Nash-Equilibrium in deterministic game. Many methods for finding such result are known (\textbf{references}), and won't be discussed here.
+
 
 
 
